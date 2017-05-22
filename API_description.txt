@@ -1,0 +1,59 @@
+http://localhost:9001/info (GET)
+{
+
+    "provider": "FIMIM",
+    "homepage": "http://phi.imim.es",
+    "admin": "Manuel Pastor",
+    "admin-email": "manuel.pastor@upf.edu"
+}
+
+
+http://localhost:9001/available_services (GET)
+{
+
+    "predictions": [
+        "ABCD"
+    ]
+
+}
+
+http://localhost:9001/predictform (GET)
+Muestra el formulario de prediccion
+
+http://localhost:9001/calculate (POST) 
+Se envia el SDF y responde con la prediccion
+
+[
+
+    {
+        "cmp_id": "0",
+        "success": "True",
+        "value": "-6.0743503303",
+        "AD": {
+            "success": "True",
+            "value": "0",
+            "message": ""
+        },
+        "RI": {
+            "success": "True",
+            "value": "1.14595589767",
+            "message": ""
+        }
+    },
+    {
+        "cmp_id": "1",
+        "success": "True",
+        "value": "-5.33778477437",
+        "AD": {
+            "success": "True",
+            "value": "1",
+            "message": ""
+        },
+        "RI": {
+            "success": "True",
+            "value": "1.14595589767",
+            "message": ""
+        }
+    }
+
+]

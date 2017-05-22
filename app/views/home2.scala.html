@@ -1,0 +1,249 @@
+@(title: String, mol_info: Html, results: Html, executive_summary: Html)
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>eTOXapp</title>
+
+    <!-- Bootstrap Core CSS -->
+    <!--link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet"-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <!-- link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet"-->
+    <!-- FileInput -->
+    <link href="@routes.Assets.at("stylesheets/fileinput.min.css")" media="all" rel="stylesheet" type="text/css" />
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+	<!-- Bootstrap SELECT (for selecting items in menus) -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css" rel="stylesheet">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+    
+    <script src=" https://cdnjs.com/libraries/1000hz-bootstrap-validator"></script>
+    
+    <!--JSME-->
+    <script type="text/javascript" language="javascript" src="@routes.Assets.at("JSME_2017-02-26/jsme/jsme.nocache.js")"></script>
+    
+     <!--Data Table-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/fh-3.1.2/r-2.1.1/datatables.min.css"/>
+ 
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/fh-3.1.2/r-2.1.1/datatables.min.js"></script>
+    
+       
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">eTOXapp</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">App</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">	
+		<div class = "row row-eq-height">
+			<!-- Left -->					
+			<div class="col-md-4 col-md-offset-1" style="padding-right:0px;">							
+				<h3 class="text-center">Input Molecules</h3>			
+					<div class="col-md-10 col-md-offset-1 text-center" style="padding-top:40px;">					
+					@helper.form(action = routes.Application.getMol_info,'enctype -> "multipart/form-data", 'id -> "molecule_form"){
+						<label class="control-label">Select File</label>
+		    			<input id="input-1" type="file" class="file" data-show-preview="false" name="uploadfile">    					
+						<h5 style="padding-top:15px; padding-bottom:15px;">or</h5>						
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#draw_mol">Draw Molecule</button>	
+					}					
+				 	</div>             	                                      
+	        </div>
+	         		
+				
+			<!-- Right -->					
+			<div class="col-md-4 col-md-offset-1">
+				<h3 class="text-center">Select Model</h3>				
+				<form action=@routes.Application.getPrediction_table method=POST enctype = "multipart/form-data" id= "model_form" data-toggle="validator">					  			  		
+		  		<fieldset class="form-group row" style="padding-top:35px;">	
+		  		
+		  			  	<!-- MODEL SELECTOR -->		  
+		  			  	
+				      	<div class="col-md-10 col-md-offset-1" style=" max-height: 100%;">			  				
+			  				@for(model <- Application.models.toList) {
+			  					<div class="form-check">
+			  						<label class="form-check-label" id="model">
+			  						<input class="form-check-input" type="radio" name="model" id="model" value="@model._2._2" required>
+			  						@model._2._1 version @model._2._4
+			  						</label>
+			  					</div>}			  					
+		  			 	</div>		  			 			  	
+				</fieldset>							
+			</div>				
+		</div>
+		<div class = "row row-eq-height">
+		
+			<div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
+				<div id="mol_info">
+				@mol_info
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
+					<div id="executive_summary">
+					@executive_summary
+					</div>		
+			</div>	
+		</div>
+				
+
+		
+
+	    <!-- Submit Button -->
+	    
+		<div class="row" style="padding-top:20px">
+			<div class="col-md-6 col-md-offset-3 text-center">
+		        <button type="submit" class="btn btn-default btn-lg" style="background:#cd3131; color:#ffffff; border-radius:100px; border: 0 none;">Submit</button>
+		    </div>
+	   </div>    
+	   </form> <!-- END of form helper -->
+	   
+		
+	
+	<!-- RESULTS -->
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			@results
+		</div>
+	</div>
+</div>		
+
+
+
+<!-- Modal -->
+<div id="draw_mol" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Draw Molecule</h4>
+      </div>
+      <div class="modal-body">
+        <div id="jsme_container"></div>
+		<!--button type="button" onclick="alert(jsmeApplet.smiles())">Show SMILES</button-->
+      </div>
+      <div class="modal-footer">
+      	<div class="btn-group"> 
+	      	<button  class="btn btn-default" onclick='getMolfile();' name="uploadfile">Get molfile</button>
+    
+	        <a  class="btn btn-default" data-dismiss="modal">Close</a>
+	    </div>    
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+		
+
+
+</body>
+
+    
+    
+    <!--FILE INPUT -->
+    <script src="@routes.Assets.at("javascripts/fileinput.min.js")"></script>
+
+    
+	
+	<!-- bootstrp select -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script>
+	
+	<!-- Select picker -->
+	<script>
+	$('.selectpicker').selectpicker();
+	</script>
+
+
+
+    <script>
+    function jsmeOnLoad(){   
+        jsmeApplet = new JSApplet.JSME("jsme_container", "560px", "380px",{"options" : "query"});
+        document.JME = jsmeApplet;
+    };
+    </script>
+	<script>
+       function getMolfile() {
+        	var mol = document.JME.molFile();
+        	document.value=mol;
+        	console.log(mol);
+          	
+             	$.ajax({
+        		type: "POST",  
+        		enctype: 'multipart/form-data',
+        		processData: false,  // Important!
+        		contentType: false,      		
+        		url: "@routes.Application.getMol_infoJSME()",
+        		data: mol,
+        		dataType: "text",
+        		succes: function(){
+        		$("#mol_info").load("/mol_info");
+        		}
+        		});
+			};   
+    </script>
+    
+    <script>
+	$(document).ready(function(){
+	   $('[data-toggle="offcanvas"]').click(function(){
+	       $("#navigation").toggleClass("hidden-xs");
+	       
+	   });
+    
+	});
+    </script>
+    
+    <script>
+    $(document).ready(function(){
+		$("input[name=model]:radio").change(function() {
+			//console.log("hello wolrd")
+			//console.log(this.value)
+			//console.log('/modelinfo?tag='+this.value)
+			var tag = this.value.replace(/ /g,"%20") //ugly encoding hack.
+	        $('#executive_summary').load('/modelinfo?tag='+encodeURI(tag));
+	    });
+    });
+   </script>
+   
+   <script>
+   $(document).ready( function () {
+	    $('#results_table').DataTable({
+	    	searching: false,
+	    	paging: false
+		    });
+	} );
+   </script>
+ 
+</body>
+
+</html>
+
+

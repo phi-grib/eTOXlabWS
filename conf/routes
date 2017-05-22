@@ -1,0 +1,32 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET 	/info 						controllers.Application.info
+
+GET 	/available_services			controllers.Application.getModels
+
+GET		/predictform				controllers.Application.predictForm
+
+POST	/calculate					controllers.Application.getPrediction
+
+
+
+
+
+POST	/calculate_table			controllers.Application.getPrediction_table
+
+POST	/mol_info				controllers.Application.getMol_infoJSME
+
+POST	/home2					controllers.Application.getMol_info
+
+GET 	/home2						controllers.Application.homePage
+
+GET 	/modelinfo					controllers.Application.getModelInfo(tag:String)
+
+
+
+

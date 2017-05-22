@@ -1,0 +1,207 @@
+@* executive_summary Template File *@
+@(model_data:scala.collection.Map[String,String])
+<div class="col-md-12 col-sx-12" style="padding-top: 20px">
+<hr>
+ <h4 class="text-center" style="padding-bottom:10px;">Model Description</h4>
+  <div style="height: 200px; overflow: auto;">
+	 	
+	<table id="mol_table" class="table table-striped table-condenset">	
+		
+	   <tbody>
+			<tr>
+				 <td>
+				 	<p class="text-left">		
+				 		<strong style="font-size:90%;">
+				 		Model title
+				 		</strong>
+				 	</p>
+				 </td> 
+				 <td>
+				 	<p>
+				 		<small>
+				 		@model_data("modeltitle")
+				 		</small>
+				 	</p>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Interpretation
+				 	</strong>
+				 </td> 
+				 <td>
+				 	<small>
+				 		@model_data("interpretation")
+				 	</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Keywords
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("keywords")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Mechanistic basis
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("mechanisticbasis")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Algorithm
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("modelalgorithm")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Training descritpion
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("trainingtype")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Test descritpion
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("testselection")
+				 		</small>
+				 </td>
+			</tr>
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Aplicability domain
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("ADassessment")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<!--tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Software used
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@*model_data("ADassessment")*@
+				 		</small>
+				 </td>
+			</tr-->
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		References
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("references")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Related Models
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("relatedmodels")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Verification status
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("verification_status")
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Contact
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("contactname"), @model_data("contactemail") 
+				 		</small>
+				 </td>
+			</tr>
+			
+			<tr>
+				 <td>
+				 	<strong style="font-size:90%;">
+				 		Verification status
+				 	</strong>
+				 </td> 
+				 <td>
+				 		<small>
+				 		@model_data("verification_status")
+				 		</small>
+				 </td>
+			</tr>
+			
+			
+			
+			
+			
+			
+			
+		</tbody>  
+	</table>
+	
+   </div>
+</div>
+

@@ -18,7 +18,7 @@ http://localhost:9001/available_services (GET)
 }
 
 http://localhost:9001/predictform (GET)
-Muestra el formulario de prediccion
+Muestra el formulario 
 
 http://localhost:9001/calculate (POST) 
 Se envia el SDF y responde con la prediccion

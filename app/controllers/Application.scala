@@ -136,7 +136,7 @@ object Application extends Controller {
     println("Model: " + modelId)
 
     println("ModelTag:" + modelTag)
-    val res = eTOXlab.getPredictionDF(modelId, fileNameMolecule, tmpDir)
+    val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir)
 
     val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
     //val molecules = DataFrame(fileNameMolecule)

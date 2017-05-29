@@ -16,7 +16,10 @@ object eTOXlab {
   private def getPredictionRAW(modelId: String, molFile: String, tmpDir: Path) = {
 
     println("Model tag: " + modelId)
+    println("Models...")
+    models.map(println)
     val (model, tag, iv, ev) = eTOXlab.models(modelId)
+    println(model, tag, iv, ev)
     val f = new File(tmpDir.toAbsolutePath().toString())
     val p = Process(eTOXlab.callPredictEtoxLab(model, iv, molFile), cwd = Some(f))
 

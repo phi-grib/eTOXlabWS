@@ -3,29 +3,37 @@
 # ~~~~
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET    /assets/*file         controllers.Assets.at(path="/public", file)
 
-GET 	/info 						controllers.Application.info
+GET    /info                 controllers.Application.info
 
-GET 	/available_services			controllers.Application.getModels
+# API
 
-GET		/predictform				controllers.Application.predictForm
+GET    /available_services   controllers.Application.getModels
 
-POST	/calculate					controllers.Application.getPrediction
+POST   /calculate            controllers.Application.getPrediction
+
+GET    /modelinfo            controllers.Application.getModelInfo(tag:String)
+
+
+# old GUI
+
+
+GET    /predictform          controllers.Application.predictForm
+# new GUI
+
+GET    /modelinfoVW          controllers.Application.getModelInfoVW(tag:String)
+GET    /                     controllers.Application.homePage
+
+
+POST   /calculate_table      controllers.Application.getPrediction_table
+
+POST   /mol_info             controllers.Application.getMol_infoJSME
+
+POST   /home2                controllers.Application.getMol_info
 
 
 
-
-
-POST	/calculate_table			controllers.Application.getPrediction_table
-
-POST	/mol_info				controllers.Application.getMol_infoJSME
-
-POST	/home2					controllers.Application.getMol_info
-
-GET 	/home2						controllers.Application.homePage
-
-GET 	/modelinfo					controllers.Application.getModelInfo(tag:String)
 
 
 

@@ -83,7 +83,7 @@
 		  			  	<!-- MODEL SELECTOR -->		  
 		  			  	
 				      	<div class="col-md-10 col-md-offset-1" style=" max-height: 100%;">			  				
-			  				@for(model <- Application.models.toList) {
+			  				@for(model <- eTOXlab.models.toList) {
 			  					<div class="form-check">
 			  						<label class="form-check-label" id="model">
 			  						<input class="form-check-input" type="radio" name="model" id="model" value="@model._2._2" required>
@@ -228,7 +228,7 @@
 			//console.log(this.value)
 			//console.log('/modelinfo?tag='+this.value)
 			var tag = this.value.replace(/ /g,"%20") //ugly encoding hack.
-	        $('#executive_summary').load('/modelinfo?tag='+encodeURI(tag));
+	        $('#executive_summary').load('/modelinfoVW?tag='+encodeURI(tag));
 	    });
     });
    </script>

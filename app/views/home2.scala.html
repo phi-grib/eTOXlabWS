@@ -114,7 +114,7 @@ function openHelpWindow() {
 					@helper.form(action = routes.Application.getMol_info,'enctype -> "multipart/form-data", 'id -> "molecule_form"){
 						<label class="control-label">Select File</label>
 		    			<input id="input-1" type="file" class="file" data-show-preview="false" name="uploadfile">    
-		    			<input id="smiles" type="text" name="smiles">						
+		    								
 						<h5 style="padding-top:15px; padding-bottom:15px;">or</h5>						
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#draw_mol">Draw Molecule</button>	
 					}					
@@ -158,7 +158,7 @@ function openHelpWindow() {
 		</div>
 				
 
-		
+		<input id="smiles" type="text" name="smiles">	
 
 	    <!-- Submit Button -->
 	    
@@ -243,13 +243,11 @@ function openHelpWindow() {
 				</script>
 	<script>
        function getMolfile() {
-        	var mol = document.JME.molFile();
-        	document.value=mol;
-        	console.log(mol);
-        	smiles = document.JME.smiles();
+        	var mol = document.JME.molFile();     	
+        	var smiles = document.JME.smiles();
         	console.log('SMILES '+ smiles);            
             console.log($('#smiles'))
-            
+            $('#smiles')[0].value=smiles;
 			};   
     </script>
     

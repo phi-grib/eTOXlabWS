@@ -14,5 +14,4 @@ object etoxvaultCache {
     df.toText(fileNameCache)
   }
   
-  laz
 }

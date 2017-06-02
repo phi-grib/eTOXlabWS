@@ -5,7 +5,7 @@
 		
 		<thead>
 			<tr>
-    			@for(field <- dataTable.getFields(List()) ){<th>@field </th>}
+    			@for(field <- List("id","Predicted value","AD value","RI value") ){<th>@field </th>}
 			</tr>
 		 
 		</thead>
@@ -15,7 +15,7 @@
 			
 			@for(row <- dataTable.getRows) {
 				<tr>
-				    @for(field <- dataTable.getFields(List()) ) {<td>@Html(row(field))</td>}
+				    @for(field <-List("cmpd_id" ,"pred_value", "AD_value","RI_value" ) ) {<td>@Html(row(field))</td>}
 
 				</tr>		
 			}

@@ -110,28 +110,9 @@ object Application extends Controller {
 
     // Split tag to get the endpoint name wich is used to call etoxlab prediction: 
     val modelTag = form.get("model").get.head
+    println("to get prediction for:" + modelTag)
 
-    val (modelId, _, _, _) = eTOXlab.modelsTag2ModelId(modelTag)
-    //
-    //    val f = new File(tmpDir.toAbsolutePath().toString())
-    //
-    //    val p = Process(eTOXlab.callPredictEtoxLab(modelId, iv, fileNameMolecule), cwd = Some(f)) //changed "model" with "tag"
-    //    //println(callPredictEtoxLab(tag, iv, fileNameMolecule))
-    //    val q = p.!
-    //    //println("eTOX lab return: " + q) // sempre retorna 0 (fix etox)
-    //
-    //    val res2 = eTOXlab.parseResults_table(tmpDir.toAbsolutePath().toString() + "/result.txt") //return prediction result
-    //    println(tmpDir.toAbsolutePath().toString() + "/result.txt")
-    //
-    //     // molecule information 
-    //    // val mol_info = dfm.dropFields(List("rownum", "AuxInfo", "StdInChI", "StdInChIKey"))
-    //
-    //    
-    //
-    //    //val molecules3 = molecules2
-    //    //.join(dfr, "rownum", "cmpd_id")
-    //    //.dropFields(List("rownum", "id", "AuxInfo", "StdInChI", "StdInChIKey"))
-    //    //.project("name","svg")
+    val (modelId, _, iv, ev) = eTOXlab.models(modelTag)
 
     println("Model: " + modelId)
 
@@ -142,7 +123,7 @@ object Application extends Controller {
     //val molecules = DataFrame(fileNameMolecule)
     //    val molecules2 = molecules.addRowNum
 
-    Ok(views.html.home2("", views.html.mol_info(dfm), views.html.results(res, modelTag), play.api.templates.Html("")))
+    Ok(views.html.home2("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv), play.api.templates.Html("")))
   }
 
   def getMol_infoJSME = Action { request =>

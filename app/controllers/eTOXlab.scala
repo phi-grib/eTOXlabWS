@@ -48,9 +48,7 @@ object eTOXlab {
   val read_models =
     {
 
-
       def listDirs(f: File): Array[File] = f.listFiles.filter(_.isDirectory)
-
 
       val lf = listDirs(new File(modeldir))
 
@@ -65,12 +63,17 @@ object eTOXlab {
         (f.getName(), st, versions)
       })
 
-      val models3 = for ((modelName, tag, versions) <- models2; version <- versions; l = version.split("\t"); internalVersion = l(0); externalVersion = l(1) if externalVersion != "0")
-        yield ({
+      val models3 = for (
+        (modelName, tag, versions) <- models2;
+        version <- versions;
+        l = version.split("\t");
+        internalVersion = l(0);
+        externalVersion = l(1) if externalVersion != "0"
+      ) yield ({
         (modelName, tag, internalVersion, externalVersion)
       })
 
-      models3
+      models3.filter(_._2.contains("Toxicity"))
     }
 
   def parseResults(lines: Iterator[String]) = {

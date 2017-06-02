@@ -83,10 +83,10 @@
 		  			  	<!-- MODEL SELECTOR -->		  
 		  			  	
 				      	<div class="col-md-10 col-md-offset-1" style=" max-height: 100%;">			  				
-			  				@for(model <- eTOXlab.models.toList) {
+			  				@for((model,c) <- eTOXlab.models.toList.zip(List(1,0,0,0,0,0,0))) {
 			  					<div class="form-check">
 			  						<label class="form-check-label" id="model">
-			  						<input class="form-check-input" type="radio" name="model" id="model" value="@model._2._2" required>
+			  						<input class="form-check-input" type="radio" name="model" id="model" value="@model._1" checked="@c" required>
 			  						@model._2._1 version @model._2._4
 			  						</label>
 			  					</div>}			  					
@@ -179,17 +179,20 @@
 	
 	<!-- Select picker -->
 	<script>
-	$('.selectpicker').selectpicker();
+		$('.selectpicker').selectpicker();
 	</script>
 
 
 
     <script>
-    function jsmeOnLoad(){   
-        jsmeApplet = new JSApplet.JSME("jsme_container", "560px", "380px",{"options" : "query"});
-        document.JME = jsmeApplet;
-    };
-    </script>
+					function jsmeOnLoad() {
+						jsmeApplet = new JSApplet.JSME("jsme_container",
+								"560px", "380px", {
+									"options" : "query"
+								});
+						document.JME = jsmeApplet;
+					};
+				</script>
 	<script>
        function getMolfile() {
         	var mol = document.JME.molFile();
@@ -212,35 +215,49 @@
     </script>
     
     <script>
-	$(document).ready(function(){
-	   $('[data-toggle="offcanvas"]').click(function(){
-	       $("#navigation").toggleClass("hidden-xs");
-	       
-	   });
-    
-	});
-    </script>
+					$(document).ready(function() {
+						$('[data-toggle="offcanvas"]').click(function() {
+							$("#navigation").toggleClass("hidden-xs");
+
+						});
+
+					});
+				</script>
     
     <script>
-    $(document).ready(function(){
-		$("input[name=model]:radio").change(function() {
-			//console.log("hello wolrd")
-			//console.log(this.value)
-			//console.log('/modelinfo?tag='+this.value)
-			var tag = this.value.replace(/ /g,"%20") //ugly encoding hack.
-	        $('#executive_summary').load('/modelinfoVW?tag='+encodeURI(tag));
-	    });
-    });
-   </script>
+    				$(document).ready(
+    	    				function()
+    	    				{
+
+    	    					$('#executive_summary').load(
+    	    							'/modelinfoVW?tag=/Toxicity/Organ%20Toxicity/Cardiotoxicity/QT%20Prolongation/7');    	    					
+    	    				});
+					$(document).ready(
+							
+							
+							function() {
+								$("input[name=model]:radio").change(
+										function() {
+											//console.log("hello wolrd")
+											//console.log(this.value)
+											//console.log('/modelinfo?tag='+this.value)
+											var tag = this.value.replace(/ /g,
+													"%20") //ugly encoding hack.
+											$('#executive_summary').load(
+													'/modelinfoVW?tag='
+															+ encodeURI(tag));
+										});
+							});
+				</script>
    
    <script>
-   $(document).ready( function () {
-	    $('#results_table').DataTable({
-	    	searching: false,
-	    	paging: false
-		    });
-	} );
-   </script>
+				$(document).ready(function() {
+					$('#results_table').DataTable({
+						searching : false,
+						paging : false
+					});
+				});
+			</script>
  
 </body>
 

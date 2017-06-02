@@ -1,0 +1,80 @@
+@(param: Any)
+	<table border=0 width="100%">
+
+	
+			<tr>
+				<td align="center">
+					<table>
+						<tr>
+							<td>
+								<div code="JME.class" name="JME" archive="JME.jar" width=360
+									height=315>You have to enable Java and JavaScritpt on
+									your machine !</div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><a href="javascript:openHelpWindow();">JME
+									Help</a></td>
+						</tr>
+					</table>
+				</td>
+				<td align="center">
+					<FORM METHOD="POST" NAME="form" ONSUBMIT="return false;">
+						<p>
+						<CENTER>
+							<b>smiles</b><BR> <INPUT TYPE="text" NAME="smi" SIZE=48"><BR>
+							<p>
+								<b>jme string</b><BR>
+								<TEXTAREA NAME="jme_output" ROWS=1 COLS=40></TEXTAREA>
+							<p>
+								<b>mol file</b><BR>
+								<TEXTAREA NAME="mol_output" ROWS=5 COLS=40></TEXTAREA>
+							<P>
+								<INPUT TYPE="button" VALUE="Get SMILES" onClick="getSmiles()">
+								&nbsp; <INPUT TYPE="button" VALUE="Get JME string"
+									onClick="getJmeFile()"> &nbsp; <INPUT TYPE="button"
+									VALUE="Get mol file" onClick="getMolFile()"> &nbsp;
+							<p>
+								<INPUT TYPE="button" VALUE="Use JME" onClick="processJme()">
+								&nbsp; <INPUT TYPE="button" VALUE="Use mol file"
+									onClick="useMol()">
+							<P>
+								<INPUT TYPE="button" VALUE="Clear Editor"
+									onClick="document.JME.reset()"> &nbsp; <INPUT
+									TYPE="reset" VALUE="Clear Fields">
+						</CENTER>
+					</FORM>
+				</td>
+			</tr>
+		</table>
+
+		<FORM METHOD="POST" NAME="for2m" ONSUBMIT="return false;">
+			<INPUT TYPE="button" VALUE="Read Molecule" onClick="readMolecule()">
+			&nbsp;&nbsp; <INPUT TYPE="button" VALUE="Read Multipart Structure"
+				onClick="readMultipart()"> &nbsp;&nbsp; <INPUT TYPE="button"
+				VALUE="Read Reaction with Mapping" onClick="readReaction()">
+		</form>
+
+		<p>
+		<TABLE BORDER=1>
+			<CAPTION>
+				<B>Keyboard shortcuts</B>
+			</CAPTION>
+			<TR>
+				<TD><FONT SIZE=2>bonds -,=,#</FONT></TD>
+				<TD><FONT SIZE=2>rings 3..8, Ph is 1, furyl 0</FONT></TD>
+				<TD><FONT SIZE=2>atoms C,N,O,P,S,F,L,B,I,H</FONT></TD>
+				<TD><FONT SIZE=2>groups t - tert.butyl, ft - CF3, y -
+						nitro, a - COOH, z - SO3H</FONT></TD>
+			</TR>
+			<TR>
+				<TD><FONT SIZE=2>d - delete</FONT></TD>
+				<TD COLSPAN=3><FONT SIZE=2>Esc - return to the standard
+						state (C, single bond)</FONT></TD>
+			<TR>
+				<TD COLSPAN=4><FONT SIZE=2>molecule may by moved by
+						"dragging" free space and rotated by pressing concurrently also
+						the shift key</FONT></TD>
+			</TR>
+		</TABLE>
+

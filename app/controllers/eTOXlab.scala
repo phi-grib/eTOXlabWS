@@ -132,6 +132,11 @@ object eTOXlab {
   }
 
   def parseResults_table(lines: Iterator[String]) = {
+
+    def truncateAt(n: Float, p: Int): Double = {
+      val s = math pow (10, p); (math floor n * s) / s
+    }
+    
     println("Parsing Table")
     val itype = "quantitative"
     var i = 0
@@ -157,9 +162,9 @@ object eTOXlab {
           val RI_value = if (fields(4) == "1") fields(5) else "None"
           val resMap = Map(
             "cmpd_id" -> i.toString,
-            "pred_value" -> pred_value,
+            "pred_value" -> truncateAt(pred_value.toFloat,2).toString(),
             "AD_value" -> AD_value,
-            "RI_value" -> RI_value)
+            "RI_value" -> truncateAt(RI_value.toFloat,2).toString())
           println(resMap)
           resMap
 

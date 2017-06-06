@@ -91,7 +91,7 @@ function openHelpWindow() {
 
 <body>
 
-<nav class="navbar navbar-default">
+<!-- nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">eTOXapp</a>
@@ -102,9 +102,9 @@ function openHelpWindow() {
       <li><a href="#">App</a></li>
     </ul>
   </div>
-</nav>
+</nav -->
 
-<div class="container-fluid">	
+<div class="container-fluid" style="padding-top:40px;">	
 
 		<div class = "row row-eq-height">
 			<!-- Left -->					
@@ -130,7 +130,7 @@ function openHelpWindow() {
 		  		
 		  			  	<!-- MODEL SELECTOR -->		  
 		  			  	
-				      	<div class="col-md-10 col-md-offset-1" style=" max-height: 100%;">			  				
+				      	<div class="col-md-10 col-md-offset-1 text-center" style=" max-height: 100%;">			  				
 			  				@for((model,c) <- eTOXlab.models.toList.zip(List("checked","","","","","",""))) {
 			  					<div class="form-check">
 			  						<label class="form-check-label" id="model">
@@ -158,7 +158,7 @@ function openHelpWindow() {
 		</div>
 				
 
-		<input id="smiles" type="text" name="smiles">	
+		<!-- input id="smiles" type="text" name="smiles" -->	
 
 	    <!-- Submit Button -->
 	    
@@ -198,7 +198,7 @@ function openHelpWindow() {
       </div>
       <div class="modal-footer">
       	<div class="btn-group"> 
-	      	<button  class="btn btn-default" onclick='getMolfile();' name="uploadfile">Get molfile</button>
+	      	<button  class="btn btn-default" onclick='getMolfile();' name="uploadfile">Upload Molecule</button>
     
 	        <a  class="btn btn-default" data-dismiss="modal">Close</a>
 	    </div>    
@@ -210,6 +210,13 @@ function openHelpWindow() {
 
 
 		
+<!-- FOOTER -->
+
+
+
+
+
+
 
 
 </body>

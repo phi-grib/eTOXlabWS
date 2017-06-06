@@ -98,15 +98,27 @@ object Application extends Controller {
   // TABLE FROM API RESPONSE
 
   def getPrediction_table = Action(parse.multipartFormData) { request =>
-    request.cookies.toList.map(println)
 
+    val form = request.body.asFormUrlEncoded
+    request.cookies.toList.map(println)
+    val tmpDir: Path = Files.createTempDirectory(FileUtils.tempPath, null)
     //println(request.session.get("molecula"))
     //idMole
-    var idMol = request.session.get("molecula").getOrElse("")
-    val fileNameMolecule = this.molecules(idMol)
-
-    val tmpDir: Path = Files.createTempDirectory(FileUtils.tempPath, null)
-    val form = request.body.asFormUrlEncoded
+    var smilesL = form.get("smiles").toList.flatten
+    val smiles = smilesL(0)
+    println("SMILES: " + smiles)
+    val fileNameMolecule =
+      if (smiles != "") {
+        println("SMILES case")
+        val filename = FileUtils.getTmpFile(tmpDir, ".sdf")
+        model.CompoundUtils.getSDFFromSMILES(smiles, filename)
+        println("filename: " + filename)
+        filename
+      } else {
+        println("SDF case")
+        var idMol = request.session.get("molecula").getOrElse("")
+        this.molecules(idMol)
+      }
 
     // Split tag to get the endpoint name wich is used to call etoxlab prediction: 
     val modelTag = form.get("model").get.head

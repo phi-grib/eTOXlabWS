@@ -10,7 +10,6 @@ import org.RDKit._
 import models.dataframe.DataFrame
 
 object CompoundUtils {
-  
 
   def getMolsFromFile(filename: String, importFields: Boolean, sdfAsField: Boolean = false): scala.collection.mutable.LinkedList[Map[String, String]] = {
 
@@ -53,7 +52,7 @@ object CompoundUtils {
     var i = 0
     var result = scala.collection.mutable.LinkedList[(Int, org.RDKit.ROMol)]()
     while (!molsup.atEnd()) {
-      val m = molsup.next() 
+      val m = molsup.next()
       result :+= (i, m)
       i = i + 1
     }
@@ -62,8 +61,8 @@ object CompoundUtils {
   }
 
   def getMolsSVG(filename: String) = {
-    val l=getMols(filename).map(t => (t._1, getSVGFromMol(t._2)))
-    val l2=l.map(t=>Map("id"->t._1.toString,"structure"->t._2))
+    val l = getMols(filename).map(t => (t._1, getSVGFromMol(t._2)))
+    val l2 = l.map(t => Map("id" -> t._1.toString, "structure" -> t._2))
     models.dataframe.DataFrame(l2.toList)
   }
 
@@ -81,6 +80,33 @@ object CompoundUtils {
     val res = for (l <- svg.split('\n').drop(1)) yield (l)
     res.mkString(" ")
   }
-  
-   
+  def getMolFromSmiles(smiles: String) = {
+    val m = try {
+      val m = org.RDKit.RWMol.MolFromSmiles(smiles)
+      m.compute2DCoords()
+      m
+    } catch {
+      case e: Throwable => {
+        println("SMILES to SDF failed: " + smiles)
+        val m = new org.RDKit.ROMol
+        m.compute2DCoords()
+        m
+      }
+    }
+    m
+  }
+
+  def getSDFFromSMILES(smiles: String, filename: String) = {
+    println("SDF filename: " + filename)
+    val sw = new org.RDKit.SDWriter(filename)
+    println("Converting SMILES to SDF RDKit: " + smiles)
+    val m = getMolFromSmiles(smiles)
+    sw.write(m)
+    sw.flush()
+    sw.close()
+    //val fileContent = Files.readAllBytes(FileSystems.getDefault().getPath(filename))
+    //val file = new File(filename)
+    filename    
+  }
+
 }

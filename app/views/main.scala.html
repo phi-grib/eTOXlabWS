@@ -1,7 +1,7 @@
 @(title: String)
 
 <html>
-  <head>
+<head>
 
 </head>
 
@@ -9,28 +9,30 @@
 
 <form action="@routes.Application.getPrediction" enctype="multipart/form-data" method="POST" role="form">
 
-	<div class="form-group">
-   		<table>
-			<tr>
-    
-    			Model:
-    				<select name="model" id="model">
-					@for(model <- eTOXlab.models.toList) {	<option value="@model._1">@model._2._2 version @model._2._4</option>}  
-  					</select>
-			</tr>
-		</table>
+    <div class="form-group">
+        <table>
+            <tr>
 
-			<br>
-				Input file: <input type="file" name="uploadfile" size="30"><br>
+                Model:
+                <select name="model" id="model">
+                    @for(model <- eTOXlab.models.toList) {
+                    <option value="@model._1">@model._2._2 version @model._2._4</option>
+                    }
+                </select>
+            </tr>
+        </table>
 
-			<br>
-	</div>  
-		        	
-		<button class="btn btn-default" type="submit">Calculate</button>
+        <br>
+        Input file: <input type="file" name="uploadfile" size="30"><br>
+
+        <br>
+    </div>
+
+    <button class="btn btn-default" type="submit">Calculate</button>
 </form>
 
 
-<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
+<script src="@routes.Assets.at('javascripts/jquery-1.9.0.min.js')"></script>
 
 </body>
 </html>

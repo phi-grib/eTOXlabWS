@@ -68,7 +68,7 @@
 			<div class="col-md-4 col-md-offset-1" style="padding-right:0px;">							
 				<h3 class="text-center">Input Molecules</h3>			
 					<div class="col-md-10 col-md-offset-1 text-center" style="padding-top:40px;">					
-					@helper.form(action = routes.Application.getMol_info,'enctype -> "multipart/form-data", 'id -> "molecule_form"){
+					@helper.form(action = routes.Application.upload_Molecule,'enctype -> "multipart/form-data", 'id -> "molecule_form"){
 						<label class="control-label">Select File</label>
 		    			<input id="input-1" type="file" class="file" data-show-preview="false" name="uploadfile">    
 		    								

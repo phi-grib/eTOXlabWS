@@ -22,15 +22,15 @@ GET    /modelinfo            controllers.Application.getModelInfo(tag:String)
 GET    /predictform          controllers.Application.predictForm
 # new GUI
 
-GET    /modelinfoVW          controllers.Application.getModelInfoVW(tag:String)
 GET    /                     controllers.Application.homePage
+GET    /modelinfoVW          controllers.Application.getModelInfoVW(tag:String)
+
 
 
 POST   /calculate_table      controllers.Application.getPrediction_table
 
-POST   /mol_info             controllers.Application.getMol_infoJSME
 
-POST   /home2                controllers.Application.getMol_info
+POST   /home2                controllers.Application.upload_Molecule
 
 
 

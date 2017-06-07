@@ -93,31 +93,39 @@ object Application extends Controller {
   }
 
   // New GUI
-  def getModelInfoVW(tag: String) = Action { Ok(views.html.executive_summary(eTOXvault.getModelInfoMP(tag))) }
+  def getModelInfoVW(tag: String) = Action { Ok(views.html.model_info(eTOXvault.getModelInfoMP(tag))) }
 
   // TABLE FROM API RESPONSE
+
+  def storeMol(tmpFile: String) = {
+    val numMol = randomGenerator.nextInt.toString
+    molecules += (numMol -> tmpFile)
+    println("Storing Molecules: ")
+    molecules.map(println)
+    numMol
+  }
 
   def getPrediction_table = Action(parse.multipartFormData) { request =>
 
     val form = request.body.asFormUrlEncoded
     request.cookies.toList.map(println)
     val tmpDir: Path = Files.createTempDirectory(FileUtils.tempPath, null)
-    //println(request.session.get("molecula"))
-    //idMole
+
     var smilesL = form.get("smiles").toList.flatten
     val smiles = smilesL(0)
     println("SMILES: " + smiles)
-    val fileNameMolecule =
+    val (fileNameMolecule,idMol) =
       if (smiles != "") {
         println("SMILES case")
         val filename = FileUtils.getTmpFile(tmpDir, ".sdf")
         model.CompoundUtils.getSDFFromSMILES(smiles, filename)
         println("filename: " + filename)
-        filename
+        val idMol=this.storeMol(filename)
+        (filename,idMol)
       } else {
         println("SDF case")
         var idMol = request.session.get("molecula").getOrElse("")
-        this.molecules(idMol)
+        (this.molecules(idMol),idMol)
       }
 
     // Split tag to get the endpoint name wich is used to call etoxlab prediction: 
@@ -132,36 +140,13 @@ object Application extends Controller {
     val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir)
 
     val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
-    //val molecules = DataFrame(fileNameMolecule)
-    //    val molecules2 = molecules.addRowNum
 
-    Ok(views.html.home2("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv), play.api.templates.Html("")))
+    Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv), play.api.templates.Html(""))).withSession(("molecula", idMol))
   }
 
-  def getMol_infoJSME = Action { request =>
-
-    println("Body: " + request.body)
-    val m = request.body.asText.get
-    val tmpDir: Path = Files.createTempDirectory(FileUtils.tempPath, null)
-    val tmpFile = FileUtils.getTmpFile(tmpDir, ".sdf")
-    import java.nio.file.{ Paths, Files }
-    import java.nio.charset.StandardCharsets
-    println(tmpFile)
-    Files.write(Paths.get(tmpFile), m.getBytes(StandardCharsets.UTF_8))
-
-    val dfm = CompoundUtils.getMolsSVG(tmpFile)
-    //val mol_info = dfm.dropFields(List("rownum", "AuxInfo", "StdInChI", "StdInChIKey"))
-    println("dATAfRAME: " + dfm)
-    val numMol = randomGenerator.nextInt
-    this.molecules += (numMol.toString -> tmpFile)
-
-    Ok(views.html.home2("", views.html.mol_info(dfm), play.api.templates.Html(""), play.api.templates.Html(""))).withSession(("molecula", numMol.toString))
-  }
-
-  def getMol_info = Action(parse.multipartFormData) { request =>
+  def upload_Molecule = Action(parse.multipartFormData) { request =>
 
     val tmpDir: Path = Files.createTempDirectory(FileUtils.tempPath, null)
-    println(request.body)
 
     val form = request.body.asFormUrlEncoded
 
@@ -175,18 +160,16 @@ object Application extends Controller {
     ufile2.ref.moveTo(new File(tmpFile), replace = true)
 
     val dfm = CompoundUtils.getMolsSVG(tmpFile)
-    //val mol_info = dfm.dropFields(List("rownum", "AuxInfo", "StdInChI", "StdInChIKey"))
 
-    val numMol = randomGenerator.nextInt
-    this.molecules += (numMol.toString -> tmpFile)
-
-    Ok(views.html.home2("", views.html.mol_info(dfm), play.api.templates.Html(""), play.api.templates.Html(""))).withSession(("molecula", numMol.toString))
+    val numMol = this.storeMol(tmpFile)
+    println("Uploading Molecule: " +numMol + "/"+tmpFile)
+    Ok(views.html.home_page("", views.html.mol_info(dfm), play.api.templates.Html(""), play.api.templates.Html(""))).withSession(("molecula", numMol))
   }
 
   //url to get model summary json:   http://phi.imim.es/modelinfo/?modeltag=/ADME/Transport/Transporters/ABCB1%20Transport/1&authkey=7b80f381248245c4&provider=UNIVIE
 
   def homePage = Action {
     val dt = DataFrame(List())
-    Ok(views.html.home2("", play.api.templates.Html(""), play.api.templates.Html(""), play.api.templates.Html("")))
+    Ok(views.html.home_page("", play.api.templates.Html(""), play.api.templates.Html(""), play.api.templates.Html("")))
   }
 }

@@ -1,24 +1,28 @@
 @(dataTable:models.dataframe.DataFrame, modelId: String)
 
-    <h2 class="text-center" style="padding-top:20px">Results of @modelId</h2>
-	<table id="results_table" class="table table-hover" style="width:100%; padding-top:30px">
-		
-		<thead>
-			<tr>
-    			@for(field <- List("id","Predicted value","AD value","RI value") ){<th>@field </th>}
-			</tr>
-		 
-		</thead>
+<h2 class="text-center" style="padding-top:20px">Results of @modelId</h2>
+<table id="results_table" class="table table-hover" style="width:100%; padding-top:30px">
 
-	   <tbody>
-		 
-			
-			@for(row <- dataTable.getRows) {
-				<tr>
-				    @for(field <-List("cmpd_id" ,"pred_value", "AD_value","RI_value" ) ) {<td>@Html(row(field))</td>}
+    <thead>
+    <tr>
+        @for(field <- List("id","Predicted value","AD value","RI value") ){
+        <th>@field</th>
+        }
+    </tr>
 
-				</tr>		
-			}
-		</tbody>
-  
-	</table>
+    </thead>
+
+    <tbody>
+
+
+    @for(row <- dataTable.getRows) {
+    <tr>
+        @for(field <-List("cmpd_id" ,"pred_value", "AD_value","RI_value" ) ) {
+        <td>@Html(row(field))</td>
+        }
+
+    </tr>
+    }
+    </tbody>
+
+</table>

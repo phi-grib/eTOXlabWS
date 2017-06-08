@@ -1,11 +1,11 @@
 package controllers
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.Files
+
 import java.io.File
-import play.api.libs.json._
-import models.dataframe._
+import java.nio.file.Path
+
 import models.dataframe.DataFrame
+import play.api.libs.json._
+
 import scala.sys.process._
 
 object eTOXlab {
@@ -32,9 +32,11 @@ object eTOXlab {
   def getPredictionJSON(modelId: String, molFile: String, tmpDir: Path) = {
     eTOXlab.parseResults(this.getPredictionRAW(modelId, molFile, tmpDir))
   }
+
   def getPredictionDF(modelId: String, molFile: String, tmpDir: Path) = {
     eTOXlab.parseResults_table(this.getPredictionRAW(modelId, molFile, tmpDir))
   }
+
   def callPredictEtoxLab(model: String, version: String, fileCmps: String) = {
     val cmd = Seq("/usr/bin/python", modeldir + "/predict.py", "-e", model, "-a", "-f", fileCmps, "-c", "-v", version)
     println("Cmd: " + cmd.mkString(" "))
@@ -43,44 +45,44 @@ object eTOXlab {
 
   lazy val models = (for ((model, tag, iv, ev) <- read_models) yield ((tag + "#" + ev) -> (model, tag, iv, ev))).toMap
 
+
   lazy val modelsTag2ModelId = (for ((model, tag, iv, ev) <- read_models) yield (tag -> (model, tag, iv, ev))).toMap
 
-  val read_models =
-    {
+  val read_models = {
 
-      def listDirs(f: File): Array[File] = f.listFiles.filter(_.isDirectory)
+    def listDirs(f: File): Array[File] = f.listFiles.filter(_.isDirectory)
 
-      val lf = listDirs(new File(modeldir))
+    val lf = listDirs(new File(modeldir))
 
-      println("---------")
-      val models2 = for (
-        f <- lf.map(_.getAbsoluteFile()) if (new File(f.getAbsoluteFile() + "/service-label.txt").exists() && new File(f.getAbsoluteFile() + "/service-version.txt").exists())
-      ) yield ({
-        val slFile = new File(f.getAbsoluteFile() + "/service-label.txt")
-        val st = FileUtils.readFileFirstLine(slFile)
-        val svVersion = new File(f.getAbsoluteFile() + "/service-version.txt")
-        val versions = FileUtils.readFileAll(svVersion)
-        (f.getName(), st, versions)
-      })
-
-      val models3 = for (
-        (modelName, tag, versions) <- models2;
-        version <- versions;
-        l = version.split("\t");
-        internalVersion = l(0);
-        externalVersion = l(1) if externalVersion != "0"
-      ) yield ({
-        (modelName, tag, internalVersion, externalVersion)
-      })
-
-      models3.filter(_._2.contains("Toxicity"))
+    println("---------")
+    val models2 = for (
+      f <- lf.map(_.getAbsoluteFile()) if (new File(f.getAbsoluteFile() + "/service-label.txt").exists() && new File(f.getAbsoluteFile() + "/service-version.txt").exists())
+    ) yield {
+      val slFile = new File(f.getAbsoluteFile() + "/service-label.txt")
+      val st = FileUtils.readFileFirstLine(slFile)
+      val svVersion = new File(f.getAbsoluteFile() + "/service-version.txt")
+      val versions = FileUtils.readFileAll(svVersion)
+      (f.getName(), st, versions)
     }
+
+    val models3 = for (
+      (modelName, tag, versions) <- models2;
+      version <- versions;
+      l = version.split("\t");
+      internalVersion = l(0);
+      externalVersion = l(1) if externalVersion != "0"
+    ) yield {
+      (modelName, tag, internalVersion, externalVersion)
+    }
+
+    models3.filter(_._2.contains("Toxicity"))
+  }
 
   def parseResults(lines: Iterator[String]) = {
     println("Parsing")
     val itype = "quantitative"
     var i = 0
-    val resultLines = for (line <- lines) yield ({
+    val resultLines = for (line <- lines) yield {
       println(line)
       val fields = line.split('\t')
       fields.map(println)
@@ -127,20 +129,21 @@ object eTOXlab {
       val resultLine = "{\"cmp_id\":\"" + i.toString + "\"," + result + "}"
       i += 1
       resultLine
-    })
+    }
     "[" + resultLines.mkString(",") + "]"
   }
 
   def parseResults_table(lines: Iterator[String]) = {
 
     def truncateAt(n: Float, p: Int): Double = {
-      val s = math pow (10, p); (math floor n * s) / s
+      val s = math pow(10, p);
+      (math floor n * s) / s
     }
-    
+
     println("Parsing Table")
     val itype = "quantitative"
     var i = 0
-    val resultLines = for (line <- lines) yield ({
+    val resultLines = for (line <- lines) yield {
       println(line)
       val fields = line.split('\t')
       fields.map(println)
@@ -162,9 +165,9 @@ object eTOXlab {
           val RI_value = if (fields(4) == "1") fields(5) else "None"
           val resMap = Map(
             "cmpd_id" -> i.toString,
-            "pred_value" -> truncateAt(pred_value.toFloat,2).toString(),
+            "pred_value" -> truncateAt(pred_value.toFloat, 2).toString(),
             "AD_value" -> AD_value,
-            "RI_value" -> truncateAt(RI_value.toFloat,2).toString())
+            "RI_value" -> truncateAt(RI_value.toFloat, 2).toString())
           println(resMap)
           resMap
 
@@ -184,7 +187,7 @@ object eTOXlab {
       }
       i += 1
       result
-    })
+    }
 
     val df = DataFrame(resultLines.toList)
     //val df = resultLines.toList

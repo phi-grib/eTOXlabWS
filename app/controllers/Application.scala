@@ -1,30 +1,14 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
 import java.io.File
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.Files
-import scala.io.Source._
-import play.api.libs.json._
-import play.api.data.Forms
-import play.api.data.Form
-import scala.collection.mutable.LinkedList
+import java.nio.file.{Files, Path}
 
-import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
-import models.dataframe._
-import models.dataframe.DataFrame
-import java.io._
-import java.nio.charset.StandardCharsets
-import models.dataframe.DataFrame
-import models.dataframe._
-import models.chemistry.CompoundUtil
 import model._
-
+import models.chemistry.CompoundUtil
 import models.dataframe.DataFrame
-import java.net.URLEncoder
+import play.api.libs.json._
+import play.api.mvc._
 
 object Application extends Controller {
 
@@ -53,8 +37,8 @@ object Application extends Controller {
   }
 
   def getModels = Action {
-    val js = Json.toJson((Map("predictions" -> eTOXlab.read_models.map(
-      (tupla: (String, String, String, String)) => Map("model" -> tupla._1, "tag" -> tupla._2, "version" -> tupla._4)))))
+    val js = Json.toJson(Map("predictions" -> eTOXlab.read_models.map(
+      (tupla: (String, String, String, String)) => Map("model" -> tupla._1, "tag" -> tupla._2, "version" -> tupla._4))))
     Ok(js)
   }
 
@@ -93,7 +77,9 @@ object Application extends Controller {
   }
 
   // New GUI
-  def getModelInfoVW(tag: String) = Action { Ok(views.html.model_info(eTOXvault.getModelInfoMP(tag))) }
+  def getModelInfoVW(tag: String) = Action {
+    Ok(views.html.model_info(eTOXvault.getModelInfoMP(tag)))
+  }
 
   // TABLE FROM API RESPONSE
 
@@ -174,7 +160,6 @@ object Application extends Controller {
   //url to get model summary json:   http://phi.imim.es/modelinfo/?modeltag=/ADME/Transport/Transporters/ABCB1%20Transport/1&authkey=7b80f381248245c4&provider=UNIVIE
 
   def homePage = Action {
-    val dt = DataFrame(List())
     Ok(views.html.home_page("", play.api.templates.Html(""), play.api.templates.Html(""), play.api.templates.Html("")))
   }
 }

@@ -114,18 +114,18 @@ object Application extends Controller {
     var smilesL = form.get("smiles").toList.flatten
     val smiles = smilesL(0)
     println("SMILES: " + smiles)
-    val (fileNameMolecule,idMol) =
+    val (fileNameMolecule, idMol) =
       if (smiles != "") {
         println("SMILES case")
         val filename = FileUtils.getTmpFile(tmpDir, ".sdf")
         model.CompoundUtils.getSDFFromSMILES(smiles, filename)
         println("filename: " + filename)
-        val idMol=this.storeMol(filename)
-        (filename,idMol)
+        val idMol = this.storeMol(filename)
+        (filename, idMol)
       } else {
         println("SDF case")
         var idMol = request.session.get("molecula").getOrElse("")
-        (this.molecules(idMol),idMol)
+        (this.molecules(idMol), idMol)
       }
 
     // Split tag to get the endpoint name wich is used to call etoxlab prediction: 
@@ -137,9 +137,13 @@ object Application extends Controller {
     println("Model: " + modelId)
 
     println("ModelTag:" + modelTag)
-    val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir)
 
     val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
+    val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir).join(dfm, "cmpd_id", "id")
+
+    println(res.getFields(List()))
+    println(dfm.getFields(List()))
+    //
 
     Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv), play.api.templates.Html(""))).withSession(("molecula", idMol))
   }
@@ -162,7 +166,7 @@ object Application extends Controller {
     val dfm = CompoundUtils.getMolsSVG(tmpFile)
 
     val numMol = this.storeMol(tmpFile)
-    println("Uploading Molecule: " +numMol + "/"+tmpFile)
+    println("Uploading Molecule: " + numMol + "/" + tmpFile)
     Ok(views.html.home_page("", views.html.mol_info(dfm), play.api.templates.Html(""), play.api.templates.Html(""))).withSession(("molecula", numMol))
   }
 

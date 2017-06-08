@@ -132,7 +132,8 @@ object Application extends Controller {
     val modelTag = form.get("model").get.head
     println("to get prediction for:" + modelTag)
 
-    val (modelId, _, iv, ev) = eTOXlab.models(modelTag)
+    val (modelId, tag, iv, ev) = eTOXlab.models(modelTag)
+    val model_units=eTOXvault.getModelInfoMP(tag).get("units").getOrElse("no units")
 
     println("Model: " + modelId)
 
@@ -145,7 +146,7 @@ object Application extends Controller {
     println(dfm.getFields(List()))
     //
 
-    Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv), play.api.templates.Html(""))).withSession(("molecula", idMol))
+    Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv,model_units), play.api.templates.Html(""))).withSession(("molecula", idMol))
   }
 
   def upload_Molecule = Action(parse.multipartFormData) { request =>

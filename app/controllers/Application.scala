@@ -1,7 +1,7 @@
 package controllers
 
 import java.io.File
-import java.nio.file.{Files, Path}
+import java.nio.file.{ Files, Path }
 
 import com.typesafe.config.ConfigFactory
 import model._
@@ -97,29 +97,30 @@ object Application extends Controller {
     request.cookies.toList.map(println)
     val tmpDir: Path = Files.createTempDirectory(FileUtils.tempPath, null)
 
-    var smilesL = form.get("smiles").toList.flatten
-    val smiles = smilesL(0)
-    println("SMILES: " + smiles)
-    val (fileNameMolecule, idMol) =
-      if (smiles != "") {
-        println("SMILES case")
-        val filename = FileUtils.getTmpFile(tmpDir, ".sdf")
-        model.CompoundUtils.getSDFFromSMILES(smiles, filename)
-        println("filename: " + filename)
-        val idMol = this.storeMol(filename)
-        (filename, idMol)
-      } else {
-        println("SDF case")
-        var idMol = request.session.get("molecula").getOrElse("")
-        (this.molecules(idMol), idMol)
-      }
-
+//    var smilesL = form.get("smiles").toList.flatten
+//    val smiles = smilesL(0)
+//    println("SMILES: " + smiles)
+//    val (fileNameMolecule, idMol) =
+//      if (smiles != "") {
+//        println("SMILES case")
+//        val filename = FileUtils.getTmpFile(tmpDir, ".sdf")
+//        model.CompoundUtils.getSDFFromSMILES(smiles, filename)
+//        println("filename: " + filename)
+//        val idMol = this.storeMol(filename)
+//        (filename, idMol)
+//      } else {
+//        println("SDF case")
+//        var idMol = request.session.get("molecula").getOrElse("")
+//        (this.molecules(idMol), idMol)
+//      }
+    var idMol0 = request.session.get("molecula").getOrElse("")
+    val (fileNameMolecule, idMol) = (this.molecules(idMol0), idMol0)
     // Split tag to get the endpoint name wich is used to call etoxlab prediction: 
     val modelTag = form.get("model").get.head
     println("to get prediction for:" + modelTag)
 
     val (modelId, tag, iv, ev) = eTOXlab.models(modelTag)
-    val model_units=eTOXvault.getModelInfoMP(tag).get("units").getOrElse("no units")
+    val model_units = eTOXvault.getModelInfoMP(tag).get("units").getOrElse("no units")
 
     println("Model: " + modelId)
 
@@ -132,7 +133,7 @@ object Application extends Controller {
     println(dfm.getFields(List()))
     //
 
-    Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv,model_units), play.api.templates.Html(""))).withSession(("molecula", idMol))
+    Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv, model_units), play.api.templates.Html(""))).withSession(("molecula", idMol))
   }
 
   def upload_Molecule = Action(parse.multipartFormData) { request =>

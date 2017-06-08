@@ -11,18 +11,7 @@ import models.dataframe._
 
 object eTOXvault {
 
-//  private val model_units_init = {
-//    val mp = Map("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/7" -> "LQTinc units",
-//      "/Toxicity/Organ Toxicity/Cardiotoxicity/hERG inhibition/3" -> "hERG inhibition units",
-//      "/Toxicity/Organ Toxicity/Cardiotoxicity/Cav1.2 inhibition/1" -> "Cav1.2 inhibition units",
-//      "/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/8" -> "LQTpot units",
-//      "/Toxicity/Organ Toxicity/Cardiotoxicity/KCNQ1 inhibition/1" -> "KCNQ1 inhibition units")
-//
-//    val l = for ((tag, units) <- mp) yield (Map("tag" -> tag, "units" -> units))
-//    val l2 = l.toList
-//    DataFrame(l2)
-//  }
-  val model_units = DataFrame(Application.envoy_ws_home + "/data/model_units.txt")
+
 
   def getModelInfo(tag: String) = {
 
@@ -58,8 +47,6 @@ object eTOXvault {
       yield ((field, value.as[JsString].value))
 
     val df = DataFrame(List(collection.immutable.HashMap(mp.toSeq: _*)))
-    //println("Fields:")
-    //df.getFields(List()).map(println)
-    df.join_left(model_units, "modeltag", "tag").getData(0)
+    df.getData(0)
   }
 }

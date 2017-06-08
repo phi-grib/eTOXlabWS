@@ -1,24 +1,26 @@
 @(dataTable:models.dataframe.DataFrame, modelId: String,model_units:String)
+	<hr>
+    <h3 class="text-center" style="padding-top:20px">Results of @modelId</h3>
+	<div id="results" style="overflow: auto;">
+		<table id="results_table" class="table table-hover" cellspacing="0" style="width:100%; padding-top:30px">
 
-    <h2 class="text-center" style="padding-top:20px">Results of @modelId</h2>
-	<table id="results_table" class="table table-hover" style="width:100%; padding-top:30px">
-		
-		<thead>
-			<tr>
-    			@for(field <- List("id","structure","Predicted value (" +model_units+")","AD value","CI value") ){<th>@field </th>}
-			</tr>
-		 
-		</thead>
-
-	   <tbody>
-		 
-			
-			@for(row <- dataTable.getRows) {
+			<thead>
 				<tr>
-				    @for(field <-List("cmpd_id" ,"structure","pred_value", "AD_value" ) ) {<td>@Html(row(field))</td>}
-					<td>@Html("&#177; "+row("RI_value"))</td>
-				</tr>		
-			}
-		</tbody>
-  
-	</table>
+					@for(field <- List("id","structure","Predicted value (" +model_units+")","AD value","CI value") ){<th>@field </th>}
+				</tr>
+
+			</thead>
+
+		   <tbody>
+
+
+				@for(row <- dataTable.getRows) {
+					<tr>
+						@for(field <-List("cmpd_id" ,"structure","pred_value", "AD_value" ) ) {<td>@Html(row(field))</td>}
+						<td>@Html("&#177; "+row("RI_value"))</td>
+					</tr>
+				}
+			</tbody>
+
+		</table>
+	</div>

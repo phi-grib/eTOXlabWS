@@ -38,104 +38,123 @@
 
 </head>
 
-<body>
-
-<!-- nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">eTOXapp</a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#" class="active">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">App</a></li>
-    </ul>
-  </div>
-</nav -->
-<div class="container-fluid" style="padding-top:40px;">
-
-    <div class="row row-eq-height">
-        <!-- Left -->
-        <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
-            <h3 class="text-center">Input Molecules</h3>
-            <div class="col-md-10 col-md-offset-1 text-center" style="padding-top:40px;">
-                @helper.form(action = routes.Application.upload_Molecule,'enctype -> "multipart/form-data", 'id ->
-                "molecule_form"){
-                <label class="control-label">Select File</label>
-                <input id="input-1" type="file" class="file" data-show-preview="false" name="uploadfile">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 
-                <!--h5 style="padding-top:15px; padding-bottom:15px;">or</h5-->
-                <!-- JSME BUTTON. Commented until v0.2-->
-                <!--button type="button" class="btn btn-default" data-toggle="modal" data-target="#draw_mol">Draw
-                    Molecule
-                </button-->
-                }
-            </div>
-        </div>
-
-
-        <!-- Right -->
-        <div class="col-md-4 col-md-offset-1">
-            <h3 class="text-center">Select Model</h3>
-            <form action=@routes.Application.getPrediction_table method=POST enctype="multipart/form-data"
-                  id="model_form" data-toggle="validator">
-                <fieldset class="form-group row" style="padding-top:35px;">
-
-                    <!-- MODEL SELECTOR -->
-
-                    <div class="col-md-10 col-md-offset-1 text-center" style=" max-height: 100%;">
-                        @for((model,c) <- eTOXlab.models.toList.zip(List("checked","","","","","",""))) {
-                        <div class="form-check">
-                            <label class="form-check-label" id="model">
-                                <input class="form-check-input" type="radio" name="model" id="model" value="@model._1"
-                                       required>
-                                @model._2._1 version @model._2._4
-                            </label>
-                        </div>
-                        }
-                    </div>
-                </fieldset>
-        </div>
-    </div>
-    <div class="row row-eq-height">
-
-        <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
-            <div id="mol_info">
-                @mol_info
-            </div>
-        </div>
-
-        <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
-            <div id="executive_summary">
-                @executive_summary
-            </div>
-        </div>
-    </div>
-
-
-    <input id="smiles" type="hidden" name="smiles">
-
-    <!-- Submit Button -->
-
-    <div class="row" style="padding-top:20px">
-        <div class="col-md-6 col-md-offset-3 text-center">
-            <button type="submit" class="btn btn-default btn-lg"
-                    style="background:#cd3131; color:#ffffff; border-radius:100px; border: 0 none;">Submit
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand page-scroll" href="#page-top">eTOXlab LQT</a>
         </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                <li class="hidden">
+                    <a class="page-scroll" href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#results">Results</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-    </form> <!-- END of form helper -->
+    <!-- /.container -->
+</nav>
+
+
+<section class="container-fluid" style="padding-top:40px;">
+
+        <div class="row row-eq-height">
+            <!-- Left -->
+            <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
+                <h3 class="text-center">Input Molecules</h3>
+                <div class="col-md-10 col-md-offset-1 text-center" style="padding-top:40px;">
+                    @helper.form(action = routes.Application.upload_Molecule,'enctype -> "multipart/form-data", 'id ->
+                    "molecule_form"){
+                    <label class="control-label">Select File</label>
+                    <input id="input-1" type="file" class="file" data-show-preview="false" name="uploadfile">
+
+                    <!--h5 style="padding-top:15px; padding-bottom:15px;">or</h5-->
+                    <!-- JSME BUTTON. Commented until v0.2-->
+                    <!--button type="button" class="btn btn-default" data-toggle="modal" data-target="#draw_mol">Draw
+                        Molecule
+                    </button-->
+                    }
+                </div>
+            </div>
+
+            <!-- Right -->
+            <div class="col-md-4 col-md-offset-1">
+                <h3 class="text-center">Select Model</h3>
+                <form action=@routes.Application.getPrediction_table method=POST enctype="multipart/form-data"
+                      id="model_form" data-toggle="validator">
+                    <fieldset class="form-group row" style="padding-top:35px;">
+
+                        <!-- MODEL SELECTOR -->
+
+                        <div class="col-md-10 col-md-offset-1 text-center" style=" max-height: 100%;">
+                            @for((model,c) <- eTOXlab.models.toList.zip(List("checked","","","","","",""))) {
+                            <div class="form-check">
+                                <label class="form-check-label" id="model">
+                                    <input class="form-check-input" type="radio" name="model" id="model" value="@model._1"
+                                           required>
+                                    @model._2._1 version @model._2._4
+                                </label>
+                            </div>
+                            }
+                        </div>
+                    </fieldset>
+            </div>
+        </div>
+        <div class="row row-eq-height">
+
+            <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
+                <div id="mol_info">
+                    @mol_info
+                </div>
+            </div>
+
+            <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
+                <div id="executive_summary">
+                    @executive_summary
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="row" style="padding-top:50px">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <button type="submit" class="btn btn-default btn-lg"
+                        style="background:#cd3131; color:#ffffff; border-radius:100px; border: 0 none;">Submit
+                </button>
+            </div>
+        </div>
+        </form> <!-- END of form helper -->
+
+
+<!-- hiden input for JSME -->
+<!--input id="smiles" type="hidden" name="smiles"-->
 
 
     <!-- RESULTS -->
-
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            @results
+    <div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                @results
+            </div>
         </div>
     </div>
-</div>
+</section>
+
 
 
 <!-- Modal. Comented til v0.2 -->
@@ -206,51 +225,56 @@
 </script-->
 
 <script>
-					$(document).ready(function() {
-						$('[data-toggle="offcanvas"]').click(function() {
-							$("#navigation").toggleClass("hidden-xs");
+    $(document).ready(function() {
+        $('[data-toggle="offcanvas"]').click(function() {
+            $("#navigation").toggleClass("hidden-xs");
 
-						});
+        });
 
-					});
-
+    });
 </script>
 <script>
-    				$(document).ready(
-    	    				function()
-    	    				{
+    $(document).ready(
+            function()
+            {
 
-    	    					$('#executive_summary').load(
-    	    							'/modelinfoVW?tag=/Toxicity/Organ%20Toxicity/Cardiotoxicity/QT%20Prolongation/7');    	    					
-    	    				});
-					$(document).ready(
-							
-							
-							function() {
-								$("input[name=model]:radio").change(
-										function() {
-											//console.log("hello wolrd")
-											//console.log(this.value)
-											//console.log('/modelinfo?tag='+this.value)
-											var tag = this.value.replace(/ /g,
-													"%20") //ugly encoding hack.
-											$('#executive_summary').load(
-													'/modelinfoVW?tag='
-															+ encodeURI(tag));
-										});
-							});
+                $('#executive_summary').load(
+                        '/modelinfoVW?tag=/Toxicity/Organ%20Toxicity/Cardiotoxicity/QT%20Prolongation/7');
+            });
+    $(document).ready(
 
+
+            function() {
+                $("input[name=model]:radio").change(
+                        function() {
+                            //console.log("hello wolrd")
+                            //console.log(this.value)
+                            //console.log('/modelinfo?tag='+this.value)
+                            var tag = this.value.replace(/ /g,
+                                    "%20") //ugly encoding hack.
+                            $('#executive_summary').load(
+                                    '/modelinfoVW?tag='
+                                            + encodeURI(tag));
+                        });
+            });
 </script>
 <script>
-				$(document).ready(function() {
-					$('#results_table').DataTable({
-						searching : false,
-						paging : false
-					});
-				});
+    $(document).ready(function() {
+        $('#results_table').DataTable({
+            "scrollY":        "550px",
+            "scrollCollapse": true,
+            "paging":         false,
+            "searching" :     false
+
+        });
+    });
 
 </script>
 
+<script>
+    if($("#results")[0]){
+        document.getElementById('results').scrollIntoView();}
+</script>
 </body>
 </html>
 

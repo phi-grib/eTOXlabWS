@@ -123,9 +123,13 @@ object Application extends Controller {
     println("Model: " + modelId)
 
     println("ModelTag:" + modelTag)
-    val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir)
 
     val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
+    val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir).join(dfm, "cmpd_id", "id")
+
+    println(res.getFields(List()))
+    println(dfm.getFields(List()))
+    //
 
     Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv), play.api.templates.Html(""))).withSession(("molecula", idMol))
   }

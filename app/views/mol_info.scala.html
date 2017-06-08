@@ -1,29 +1,25 @@
 @(dataTable:models.dataframe.DataFrame)
 
-<div class="col-md-12 col-sx-12" style="padding-top: 20px">
+ <div class="col-md-12 col-sx-12" style="padding-top: 20px">
     <hr>
-    <h4 class="text-center">Selected Molecules</h4>
-    <div style="height: 200px; overflow: auto;">
-        <table id="mol_table" class="table table-hoover table-condensed">
+ 	<h4 class="text-center">Selected Molecules. @dataTable.size molecules uploaded</h4>
+    <div style="height: 200px; overflow: auto;">           	                
+	<table id="mol_table" class="table table-hoover table-condensed">
+		
+		<thead>
+			<tr>
+    			@for(field <- dataTable.getFields(List()) ){<th>@field </th>}
+			</tr>
+		</thead>
+	   <tbody>
+		@for(row <- dataTable.getRows) {
+				<tr>
+				    @for(field <- dataTable.getFields(List()) ) {<td>@Html(row(field))</td>}
 
-            <thead>
-            <tr>
-                @for(field <- dataTable.getFields(List()) ){
-                <th>@field</th>
-                }
-            </tr>
-            </thead>
-            <tbody>
-            @for(row <- dataTable.getRows) {
-            <tr>
-                @for(field <- dataTable.getFields(List()) ) {
-                <td>@Html(row(field))</td>
-                }
-
-            </tr>
-            }
-            </tbody>
-
-        </table>
-    </div>
+				</tr>		
+			}
+		</tbody>
+  
+	</table>
+	</div>
 </div>

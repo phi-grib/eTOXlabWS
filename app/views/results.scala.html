@@ -15,7 +15,8 @@
 
 				@for(row <- dataTable.getRows) {
 					<tr>
-						@for(field <-List("cmpd_id" ,"structure","pred_value", "AD_value" ) ) {<td>@Html(row(field))</td>}
+						@for(field <-List("cmpd_id" ,"structure","pred_value" ) ) {<td>@Html(row(field))</td>}
+                        <td class="AD_val">@Html(row("AD_value"))</td>
 						<td>@Html("&#177; "+row("RI_value"))</td>
 					</tr>
 				}
@@ -23,3 +24,12 @@
 
 		</table>
 	</div>
+
+<script>
+    $(document).ready(function() {
+        $('.AD_val').each(function(i, n) {
+            console.log(n);
+            if($(n).text() > 2) $(n).css('color', 'red');
+        });
+    })
+</script>

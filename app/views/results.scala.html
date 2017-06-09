@@ -6,13 +6,12 @@
 
 			<thead>
 				<tr>
-					@for(field <- List("id","structure","Predicted value (" +model_units+")","AD value","CI value") ){<th>@field </th>}
+					@for(field <- List("id","structure","Predicted value <small>" +model_units+"</small>","AD value","CI value") ){<th>@Html(field) </th>}
 				</tr>
 
 			</thead>
 
 		   <tbody>
-
 
 				@for(row <- dataTable.getRows) {
 					<tr>

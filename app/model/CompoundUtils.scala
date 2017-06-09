@@ -1,31 +1,25 @@
 package model
 
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.FileSystems
 import java.io.PrintStream
-import scala.sys.process._
+
 import org.RDKit._
-import models.dataframe.DataFrame
 
 object CompoundUtils {
 
   def getMolsFromFile(filename: String, importFields: Boolean, sdfAsField: Boolean = false): scala.collection.mutable.LinkedList[Map[String, String]] = {
 
-    def getProps_RDKitMol(m: org.RDKit.ROMol) =
-      {
-        val proplist = m.getPropList(false, false)
-        val siz = proplist.size()
-        var mp = scala.collection.immutable.Map[String, String]()
-        for (i <- Range(0, siz.toInt)) {
-          var prop = proplist.get(i)
-          if (!prop.startsWith("_")) {
-            mp = mp + (prop -> m.getProp(prop).replace('\t', ' '))
-          } else {}
-        }
-        mp
+    def getProps_RDKitMol(m: org.RDKit.ROMol) = {
+      val proplist = m.getPropList(false, false)
+      val siz = proplist.size()
+      var mp = scala.collection.immutable.Map[String, String]()
+      for (i <- Range(0, siz.toInt)) {
+        var prop = proplist.get(i)
+        if (!prop.startsWith("_")) {
+          mp = mp + (prop -> m.getProp(prop).replace('\t', ' '))
+        } else {}
       }
+      mp
+    }
 
     def getSDF(m: org.RDKit.ROMol) = {
       m.compute2DCoords()
@@ -73,13 +67,14 @@ object CompoundUtils {
     m.compute2DCoords()
     val c = m.getConformer()
     m.WedgeMolBonds(c)
-    val drawer = new org.RDKit.MolDraw2DSVG(100, 100)
+    val drawer = new org.RDKit.MolDraw2DSVG(150, 150)
     drawer.drawMolecule(m)
     drawer.finishDrawing()
     val svg = drawer.getDrawingText().replace("svg:", "")
     val res = for (l <- svg.split('\n').drop(1)) yield (l)
     res.mkString(" ")
   }
+
   def getMolFromSmiles(smiles: String) = {
     val m = try {
       val m = org.RDKit.RWMol.MolFromSmiles(smiles)
@@ -106,7 +101,7 @@ object CompoundUtils {
     sw.close()
     //val fileContent = Files.readAllBytes(FileSystems.getDefault().getPath(filename))
     //val file = new File(filename)
-    filename    
+    filename
   }
 
 }

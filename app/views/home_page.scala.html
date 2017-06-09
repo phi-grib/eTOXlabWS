@@ -70,7 +70,6 @@
     <!-- /.container -->
 </nav>
 
-
 <section class="container-fluid" style="padding-top:40px;">
 
         <div class="row row-eq-height">
@@ -91,90 +90,81 @@
                     }
                 </div>
             </div>
-
+            <form action=@routes.Application.getPrediction_table method=POST enctype="multipart/form-data"
+                  id="model_form" data-toggle="validator">
             <!-- Right -->
-            <div class="col-md-4 col-md-offset-1">
-                <h3 class="text-center">Select Model</h3>
-                <form action=@routes.Application.getPrediction_table method=POST enctype="multipart/form-data"
-                      id="model_form" data-toggle="validator">
-                    <fieldset class="form-group row" style="padding-top:35px;">
+                <div class="col-md-4 col-md-offset-1">
+                    <h3 class="text-center">Select Model</h3>
+                        <fieldset class="form-group row" style="padding-top:35px;">
 
-                        <!-- MODEL SELECTOR -->
+                            <!-- MODEL SELECTOR -->
 
-                        <div class="col-md-4 col-md-offset-4" style=" max-height: 100%;">
+                            <div class="col-md-4 col-md-offset-4" style=" max-height: 100%;">
 
-                            <!--Hard Coded Model Selector (Sorted)=-->
-                            <div class="form-check">
-                                <label class="form-check-label" id="model">
-                                    <input class="form-check-input" type="radio" name="model" id="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/7#1"
-                                           required>
-                                    @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/7#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/7#1")._4
-                                </label>
+                                <!--Hard Coded Model Selector (Sorted)=-->
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/7#1"
+                                               required>
+                                        @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/7#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/7#1")._4
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/8#1"
+                                               required>
+                                        @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/8#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/8#1")._4
+                                    </label>
+                                </div>
+
+                                <div class="form-check" style="padding-top: 10px;">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/hERG inhibition/3#1"
+                                               required>
+                                        @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/hERG inhibition/3#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/hERG inhibition/3#1")._4
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/Cav1.2 inhibition/1#1"
+                                               required>
+                                        @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/Cav1.2 inhibition/1#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/Cav1.2 inhibition/1#1")._4
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/KCNQ1 inhibition/1#1"
+                                               required>
+                                        @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/KCNQ1 inhibition/1#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/KCNQ1 inhibition/1#1")._4
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <label class="form-check-label" id="model">
-                                    <input class="form-check-input" type="radio" name="model" id="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/8#1"
-                                           required>
-                                    @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/8#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/QT Prolongation/8#1")._4
-                                </label>
-                            </div>
+                        </fieldset>
+                </div>
 
-                            <div class="form-check" style="padding-top: 10px;">
-                                <label class="form-check-label" id="model">
-                                    <input class="form-check-input" type="radio" name="model" id="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/hERG inhibition/3#1"
-                                           required>
-                                    @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/hERG inhibition/3#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/hERG inhibition/3#1")._4
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label" id="model">
-                                    <input class="form-check-input" type="radio" name="model" id="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/Cav1.2 inhibition/1#1"
-                                           required>
-                                    @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/Cav1.2 inhibition/1#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/Cav1.2 inhibition/1#1")._4
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label" id="model">
-                                    <input class="form-check-input" type="radio" name="model" id="model" value="/Toxicity/Organ Toxicity/Cardiotoxicity/KCNQ1 inhibition/1#1"
-                                           required>
-                                    @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/KCNQ1 inhibition/1#1")._1 version @eTOXlab.models("/Toxicity/Organ Toxicity/Cardiotoxicity/KCNQ1 inhibition/1#1")._4
-                                </label>
-                            </div>
-
-
-                        </div>
-                    </fieldset>
-            </div>
-        </div>
-        <div class="row row-eq-height">
-
-            <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
-                <div id="mol_info">
-                    @mol_info
+            <div class="row row-eq-height">
+                <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
+                    <div id="mol_info">
+                        @mol_info
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
+                    <div id="executive_summary">
+                        @executive_summary
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-4 col-md-offset-1" style="padding-right:0px;">
-                <div id="executive_summary">
-                    @executive_summary
+            <!-- Submit Button -->
+            <div class="row" style="padding-top:50px">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <button type="submit" class="btn btn-default btn-lg"
+                            style="background:#cd3131; color:#ffffff; border-radius:100px; border: 0 none;">Submit
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="row" style="padding-top:50px">
-            <div class="col-md-6 col-md-offset-3 text-center">
-                <button type="submit" class="btn btn-default btn-lg"
-                        style="background:#cd3131; color:#ffffff; border-radius:100px; border: 0 none;">Submit
-                </button>
-            </div>
-        </div>
         </form> <!-- END of form helper -->
-
-
 <!-- hiden input for JSME -->
 <!--input id="smiles" type="hidden" name="smiles"-->
-
 
     <!-- RESULTS -->
     <div>
@@ -231,7 +221,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script>
 <!-- Select picker -->
 <script>
-		$('.selectpicker').selectpicker();
+	$('.selectpicker').selectpicker();
 </script>
 
 <!-- JSME js handler for version 0.2 -->
@@ -301,7 +291,6 @@
     });
 
 </script>
-
 <script>
     if($("#results")[0]){
         document.getElementById('results').scrollIntoView();}

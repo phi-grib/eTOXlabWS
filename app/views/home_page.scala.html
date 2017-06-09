@@ -17,6 +17,7 @@
     <!-- link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet"-->
     <!-- FileInput -->
     <link href='@routes.Assets.at("stylesheets/fileinput.min.css")' media="all" rel="stylesheet" type="text/css" />
+    <link href='@routes.Assets.at("stylesheets/loader.css")' media="all" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <!-- Bootstrap SELECT (for selecting items in menus) -->
@@ -171,11 +172,17 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 @results
+            <img src='@routes.Assets.at("images/Preloader_4.gif")' id="gif" style="display: block; margin: 0 auto; width: 100px; visibility: hidden;">
             </div>
         </div>
     </div>
 </section>
 
+<script type="text/javascript">
+$('#model_form').submit(function() {
+    $('#gif').css('visibility', 'visible');
+});
+</script>
 
 
 <!-- Modal. Comented til v0.2 -->

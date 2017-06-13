@@ -168,4 +168,9 @@ object Application extends Controller {
   def homePage = Action {
     Ok(views.html.home_page("", play.api.templates.Html(""), play.api.templates.Html(""), play.api.templates.Html("")))
   }
+
+  def references = Action {
+    Ok(views.html.references(""))
+  }
+
 }

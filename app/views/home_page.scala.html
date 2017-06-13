@@ -25,7 +25,7 @@
     <!--JQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src='@routes.Assets.at("javascripts/bootstrap.min.js")'></script>
+    <!--script src='@routes.Assets.at("javascripts/bootstrap.min.js")'></script>
     <!-- Field validator-->
     <script src=" https://cdnjs.com/libraries/1000hz-bootstrap-validator"></script>
     <!--JSME-->
@@ -64,6 +64,15 @@
                 <li>
                     <a class="page-scroll" href="#results">Results</a>
                 </li>
+                <li>
+                    <a href="/references">References</a>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://www.etoxproject.eu/">eTOX</a></li>
+                <li><a href="http://phi.upf.edu/phi/">PhI</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -209,7 +218,6 @@ $('#model_form').submit(function() {
 });
 </script>
 
-
 <!-- Modal. Comented til v0.2 -->
 
 <!--div id="draw_mol" class="modal fade" role="dialog">
@@ -242,7 +250,6 @@ $('#model_form').submit(function() {
 
 </body>
 
-
 <!--FILE INPUT -->
 <script src='@routes.Assets.at("javascripts/fileinput.min.js")'></script>
 <!-- Scrolling Nav JavaScript -->
@@ -255,7 +262,6 @@ $('#model_form').submit(function() {
 <script>
 	$('.selectpicker').selectpicker();
 </script>
-
 <!-- JSME js handler for version 0.2 -->
 <!--script>
         function jsmeOnLoad() {
@@ -327,8 +333,6 @@ $('#model_form').submit(function() {
     if($("#results")[0]){
         document.getElementById('results').scrollIntoView();}
 </script>
-
-</body>
 </html>
 
 

@@ -18,22 +18,24 @@ GET    /modelinfo            controllers.Application.getModelInfo(tag:String)
 
 # old GUI
 
-
 GET    /predictform          controllers.Application.predictForm
+
 # new GUI
 
 GET    /                     controllers.Application.homePage
-GET    /modelinfoVW          controllers.Application.getModelInfoVW(tag:String)
 
+GET    /home                 controllers.Application.homePage
+
+GET    /modelinfoVW          controllers.Application.getModelInfoVW(tag:String)
 
 
 POST   /calculate_table      controllers.Application.getPrediction_table
 
 
-POST   /home2                controllers.Application.upload_Molecule
+POST   /home                controllers.Application.upload_Molecule
 
 
-
+GET    /references           controllers.Application.references
 
 
 

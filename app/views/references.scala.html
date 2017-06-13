@@ -1,0 +1,107 @@
+@(title: String)
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>eTOXapp</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href='@routes.Assets.at("stylesheets/bootstrap.min.css")' rel="stylesheet">
+
+    <!-- FileInput -->
+    <link href='@routes.Assets.at("stylesheets/fileinput.min.css")' media="all" rel="stylesheet" type="text/css" />
+    <link href='@routes.Assets.at("stylesheets/loader.css")' media="all" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <!--script src='@routes.Assets.at("javascripts/bootstrap.min.js")'></script>
+    <!-- Field validator-->
+    <script src=" https://cdnjs.com/libraries/1000hz-bootstrap-validator"></script>
+    <!--JSME-->
+    <script type="text/javascript" language="javascript" src='@routes.Assets.at("JSME_2017-02-26/jsme/jsme.nocache.js")'></script>
+    <!--Data Table-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/fh-3.1.2/r-2.1.1/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/fh-3.1.2/r-2.1.1/datatables.min.js"> </script>
+    <!--Scroll Nav-->
+    <link href='@routes.Assets.at("stylesheets/scrolling-nav.css")' rel="stylesheet">
+
+
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">eTOXlab LQT</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                <li class="hidden">
+                    <a  href="/#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/#results">Results</a>
+                </li>
+                <li>
+                    <a href="#results">References</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://www.etoxproject.eu/">eTOX</a></li>
+                <li><a href="http://phi.upf.edu/phi/">PhI</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<section class="container-fluid" style="padding-top:80px;">
+    <div class="col-md-5 col-md-offset-3">
+        <h2>References</h2>
+        <ul style="padding-top:40px;">
+            <li><strong>A Multiscale Simulation System for the Prediction of Drug-Induced Cardiotoxicity.</strong><br>
+                Cristian Obiol-Pardo, Julio Gomis-Tena, Ferran Sanz, Javier Saiz, and Manuel Pastor.<br>
+                <i>Journal of Chemical Information and Modeling.</i> <strong>2011</strong> 51 (2), 483-492.<br>
+                DOI: 10.1021/ci100423z
+            </li>
+            <br>
+            <br>
+            <li><strong>Applicability Domain Analysis (ADAN): A Robust Method for Assessing the Reliability of Drug Property Predictions.</strong><br>
+                Pau Carrió, Marta Pinto, Gerhard Ecker, Ferran Sanz, and Manuel Pastor.<br>
+                <i>Journal of Chemical Information and Modeling.</i> <strong>2014</strong> 54 (5), 1500-1511.<br>
+                DOI: 10.1021/ci500172z
+            </li>
+
+        </ul>
+
+    </div>
+
+
+</section>
+</body>
+
+<!--FILE INPUT -->
+<script src='@routes.Assets.at("javascripts/fileinput.min.js")'></script>
+<!-- Scrolling Nav JavaScript -->
+<script src='@routes.Assets.at("javascripts/jquery.easing.min.js")'></script>
+<script src='@routes.Assets.at("javascripts/scrolling-nav.js")'></script>
+
+</html>

@@ -114,26 +114,31 @@ object Application extends Controller {
 //        (this.molecules(idMol), idMol)
 //      }
     var idMol0 = request.session.get("molecula").getOrElse("")
-    val (fileNameMolecule, idMol) = (this.molecules(idMol0), idMol0)
-    // Split tag to get the endpoint name wich is used to call etoxlab prediction: 
-    val modelTag = form.get("model").get.head
-    println("to get prediction for:" + modelTag)
+    val keys=this.molecules.keys.toSet
+    if (!keys.contains(idMol0))
+      Ok(views.html.home_page("Please upload a file!", play.api.templates.Html(""), play.api.templates.Html(""), play.api.templates.Html("")))
+      else {
+        val (fileNameMolecule, idMol) = (this.molecules(idMol0), idMol0)
+        // Split tag to get the endpoint name wich is used to call etoxlab prediction:
+        val modelTag = form.get("model").get.head
+        println("to get prediction for:" + modelTag)
 
-    val (modelId, tag, iv, ev) = eTOXlab.models(modelTag)
-    val model_units = eTOXvault.getModelInfoMP(tag).get("units").getOrElse("no units")
+        val (modelId, tag, iv, ev) = eTOXlab.models(modelTag)
+        val model_units = eTOXvault.getModelInfoMP(tag).get("units").getOrElse("no units")
 
-    println("Model: " + modelId)
+        println("Model: " + modelId)
 
-    println("ModelTag:" + modelTag)
+        println("ModelTag:" + modelTag)
 
-    val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
-    val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir).join(dfm, "cmpd_id", "id")
+        val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
+        val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir).join(dfm, "cmpd_id", "id")
 
-    println(res.getFields(List()))
-    println(dfm.getFields(List()))
-    //
+        println(res.getFields(List()))
+        println(dfm.getFields(List()))
+        //
 
-    Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv, model_units), play.api.templates.Html(""))).withSession(("molecula", idMol))
+        Ok(views.html.home_page("", views.html.mol_info(dfm), views.html.results(res, modelId + " version " + iv, model_units), play.api.templates.Html(""))).withSession(("molecula", idMol))
+      }
   }
 
   def upload_Molecule = Action(parse.multipartFormData) { request =>

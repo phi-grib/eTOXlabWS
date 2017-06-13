@@ -67,7 +67,7 @@ object CompoundUtils {
     m.compute2DCoords()
     val c = m.getConformer()
     m.WedgeMolBonds(c)
-    val drawer = new org.RDKit.MolDraw2DSVG(150, 150)
+    val drawer = new org.RDKit.MolDraw2DSVG(187, 187)
     drawer.drawMolecule(m)
     drawer.finishDrawing()
     val svg = drawer.getDrawingText().replace("svg:", "")

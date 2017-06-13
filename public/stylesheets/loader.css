@@ -1,0 +1,7 @@
+.photo {
+    text-align: center; /*for centering images inside*/
+}
+.photo img {
+    width: 100px; /*set the width or max-width*/
+    height: auto; /*this makes sure to maintain the aspect ratio*/
+}

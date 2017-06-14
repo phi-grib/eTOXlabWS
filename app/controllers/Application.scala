@@ -23,6 +23,8 @@ object Application extends Controller {
   val etoxlabhome = conf.getString("etoxlabhome")
   val modeldir = etoxlabhome + "/src"
   val envoy_ws_home = conf.getString("envoy_ws_home")
+  val molsizex=150
+  val molsizey=150
   //Startup debug
   println("Models")
   eTOXlab.models.map(println)
@@ -130,7 +132,8 @@ object Application extends Controller {
 
         println("ModelTag:" + modelTag)
 
-        val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
+        
+        val dfm = CompoundUtils.getMolsIMG(fileNameMolecule)
         val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir).join(dfm, "cmpd_id", "id")
 
         println(res.getFields(List()))
@@ -156,7 +159,8 @@ object Application extends Controller {
     val tmpFile = FileUtils.getTmpFile(tmpDir, ".sdf")
     ufile2.ref.moveTo(new File(tmpFile), replace = true)
 
-    val dfm = CompoundUtils.getMolsSVG(tmpFile)
+    //val dfm = CompoundUtils.getMolsSVG(tmpFile)
+    val dfm = CompoundUtils.getMolsIMG(tmpFile)
 
     val numMol = this.storeMol(tmpFile)
     println("Uploading Molecule: " + numMol + "/" + tmpFile)

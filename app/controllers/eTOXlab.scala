@@ -142,7 +142,7 @@ object eTOXlab {
 
     println("Parsing Table")
     val itype = "quantitative"
-    var i = 0
+    var i = 1
     val resultLines = for (line <- lines) yield {
       println(line)
       val fields = line.split('\t')

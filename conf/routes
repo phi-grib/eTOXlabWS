@@ -32,7 +32,7 @@ GET    /modelinfoVW          controllers.Application.getModelInfoVW(tag:String)
 POST   /calculate_table      controllers.Application.getPrediction_table
 
 
-POST   /home                controllers.Application.upload_Molecule
+POST   /home2                controllers.Application.upload_Molecule
 
 
 GET    /references           controllers.Application.references

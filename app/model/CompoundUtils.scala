@@ -67,8 +67,8 @@ object CompoundUtils {
 
   def getMolsIMG(filename: String) = {
     val l = getMols(filename)
-    			.par
-    			.map(p => (p._1, getIMGBase64_FromSMiles_RDKit(p._2.MolToSmiles())))
+      .par
+      .map(p => (p._1, getIMGBase64_FromSMiles_RDKit(p._2.MolToSmiles())))
     val img = (base64: String) => "<img alt=\"Embedded Image\" src=\"data:image/png;base64," + base64 + "\"> </img>"
     val l2 = l.map(t => Map("id" -> t._1.toString, "structure" -> img(t._2)))
     models.dataframe.DataFrame(l2.toList)
@@ -91,6 +91,7 @@ object CompoundUtils {
     //println(retValue)
     val f = new File(filename)
     val bi = ImageIO.read(f)
+    f.delete()
     bi
   }
 

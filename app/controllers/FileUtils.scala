@@ -31,7 +31,7 @@ object FileUtils {
     val calendar = new GregorianCalendar()
     val sdf = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS")
     val datetime = sdf.format(calendar.getTime())
-    path + "/" + prefix + "_" + datetime.toString() + suffix
+    path + "/" + prefix + "_" + datetime.toString()  +"_"+controllers.Application.randomGenerator.nextInt.toString + suffix
   }
 
   def readFileFirstLine(file: File) = scala.io.Source.fromFile(file).getLines.take(1).reduceLeft(_ + _)

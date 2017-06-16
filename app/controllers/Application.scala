@@ -17,7 +17,7 @@ object Application extends Controller {
 
   // per carregar la llibreria binaria de RDKit
 
-  CompoundUtil.getSDFFromSMILES("CC")
+  CompoundUtil.loadRDKit
 
   val conf = ConfigFactory.load()
   val etoxlabhome = conf.getString("etoxlabhome")

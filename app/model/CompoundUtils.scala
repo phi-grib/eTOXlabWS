@@ -13,6 +13,8 @@ import org.apache.commons.codec.binary.Base64
 
 object CompoundUtils {
 
+
+
   var sizex = controllers.Application.molsizex
   var sizey = controllers.Application.molsizey
 
@@ -113,7 +115,7 @@ object CompoundUtils {
     m.compute2DCoords()
     val c = m.getConformer()
     m.WedgeMolBonds(c)
-    val drawer = new org.RDKit.MolDraw2DSVG(100, 100)
+    val drawer = new org.RDKit.MolDraw2DSVG(200, 200)
     drawer.drawMolecule(m)
     drawer.finishDrawing()
     val svg = drawer.getDrawingText().replace("svg:", "")

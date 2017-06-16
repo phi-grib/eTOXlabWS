@@ -1,20 +1,23 @@
 package controllers
 
-import java.util.GregorianCalendar
+import java.io.{File, FileInputStream}
+import java.nio.file.{Path, Paths}
 import java.text.SimpleDateFormat
-import java.util.Properties
-import java.io.FileInputStream
-import scala.collection.mutable.HashMap
-import scala.collection.immutable.HashSet
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.Files
-import java.io.File
+import java.util.{GregorianCalendar, Properties}
+object Lib {
+  def loadLibs={
+    System.load("/opt/envoy_ws/lib/libboost_thread.so.1.56.0")
+    System.load("/opt/envoy_ws/lib/libboost_system.so.1.56.0")
+    System.load("/opt/envoy_ws/lib/libGraphMolWrap.so")
 
+  }
+}
 object FileUtils {
-  
+
   val tempPath: Path = Paths.get(Application.envoy_ws_home + "/temp")
+
   def getCurrentDirectory = new java.io.File(".").getCanonicalPath
+
   def getFile(fileName: String) = {
     io.Source.fromFile(fileName).getLines().toSet
   }
@@ -35,14 +38,14 @@ object FileUtils {
   }
 
   def readFileFirstLine(file: File) = scala.io.Source.fromFile(file).getLines.take(1).reduceLeft(_ + _)
+
   def readFileAll(file: File) = scala.io.Source.fromFile(file).getLines.toList
 
-  def getTmpFile(tmpDir: Path, extension: String) =
-    {
-      val tdir = tmpDir.toAbsolutePath().toString()
-      println("Temp!")
-      println(tmpDir.toAbsolutePath().toString())
-      val tfile = tdir + "/input_file" + extension
-      tfile
-    }
+  def getTmpFile(tmpDir: Path, extension: String) = {
+    val tdir = tmpDir.toAbsolutePath().toString()
+    println("Temp!")
+    println(tmpDir.toAbsolutePath().toString())
+    val tfile = tdir + "/input_file" + extension
+    tfile
+  }
 }

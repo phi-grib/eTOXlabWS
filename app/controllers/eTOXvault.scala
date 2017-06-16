@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json._
 import play.api.libs.ws._
 
-import scala.concurrent.Future
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import models.dataframe.DataFrame
@@ -44,7 +43,7 @@ object eTOXvault {
     println("Model tag: " + tag)
     val jso = this.getModelInfo(tag)
     val mp = for ((field, value) <- jso.value if (field != "software"))
-      yield ((field, value.as[JsString].value))
+      yield (field, value.as[JsString].value)
 
     val df = DataFrame(List(collection.immutable.HashMap(mp.toSeq: _*)))
     df.getData(0)

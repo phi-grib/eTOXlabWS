@@ -133,7 +133,7 @@ object Application extends Controller {
         println("ModelTag:" + modelTag)
 
         
-        val dfm = CompoundUtils.getMolsIMG(fileNameMolecule)
+        val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
         val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir).join(dfm, "cmpd_id", "id")
 
         println(res.getFields(List()))
@@ -159,12 +159,12 @@ object Application extends Controller {
     val tmpFile = FileUtils.getTmpFile(tmpDir, ".sdf")
     ufile2.ref.moveTo(new File(tmpFile), replace = true)
 
-    //val dfm = CompoundUtils.getMolsSVG(tmpFile)
-    val dfm = CompoundUtils.getMolsIMG(tmpFile)
+    val dfm = CompoundUtils.getMolsSVG(tmpFile)
+//    val dfm = CompoundUtils.getMolsIMG(tmpFile)
 
     val numMol = this.storeMol(tmpFile)
     println("Uploading Molecule: " + numMol + "/" + tmpFile)
-    Ok(views.html.home_page("", views.html.mol_info(dfm), play.api.templates.Html(""), play.api.templates.Html(""))).withSession(("molecula", numMol))
+    Ok(views.html.mol_info(dfm))
   }
 
   //url to get model summary json:   http://phi.imim.es/modelinfo/?modeltag=/ADME/Transport/Transporters/ABCB1%20Transport/1&authkey=7b80f381248245c4&provider=UNIVIE
@@ -176,5 +176,6 @@ object Application extends Controller {
   def references = Action {
     Ok(views.html.references(""))
   }
+
 
 }

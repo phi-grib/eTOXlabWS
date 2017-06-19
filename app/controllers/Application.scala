@@ -159,12 +159,12 @@ object Application extends Controller {
     val tmpFile = FileUtils.getTmpFile(tmpDir, ".sdf")
     ufile2.ref.moveTo(new File(tmpFile), replace = true)
 
-    val dfm = CompoundUtils.getMolsSVG(tmpFile)
-//    val dfm = CompoundUtils.getMolsIMG(tmpFile)
+//    val dfm = CompoundUtils.getMolsSVG(tmpFile)
+    val dfm = CompoundUtils.getMolsIMG(tmpFile)
 
     val numMol = this.storeMol(tmpFile)
     println("Uploading Molecule: " + numMol + "/" + tmpFile)
-    Ok(views.html.mol_info(dfm))
+    Ok(views.html.home_page("", views.html.mol_info(dfm), play.api.templates.Html(""), play.api.templates.Html(""))).withSession(("molecula", numMol))
   }
 
   //url to get model summary json:   http://phi.imim.es/modelinfo/?modeltag=/ADME/Transport/Transporters/ABCB1%20Transport/1&authkey=7b80f381248245c4&provider=UNIVIE

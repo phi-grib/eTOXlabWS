@@ -117,6 +117,7 @@ object CompoundUtils {
     m.WedgeMolBonds(c)
     val drawer = new org.RDKit.MolDraw2DSVG(200, 200)
     drawer.drawMolecule(m)
+    drawer.setLineWidth(20)
     drawer.finishDrawing()
     val svg = drawer.getDrawingText().replace("svg:", "")
     val res = for (l <- svg.split('\n').drop(1)) yield (l)

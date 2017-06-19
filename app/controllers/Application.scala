@@ -17,7 +17,7 @@ object Application extends Controller {
 
   // per carregar la llibreria binaria de RDKit
 
-  CompoundUtil.getSDFFromSMILES("CC")
+  CompoundUtil.loadRDKit
 
   val conf = ConfigFactory.load()
   val etoxlabhome = conf.getString("etoxlabhome")
@@ -133,7 +133,7 @@ object Application extends Controller {
         println("ModelTag:" + modelTag)
 
         
-        val dfm = CompoundUtils.getMolsIMG(fileNameMolecule)
+        val dfm = CompoundUtils.getMolsSVG(fileNameMolecule)
         val res = eTOXlab.getPredictionDF(modelTag, fileNameMolecule, tmpDir).join(dfm, "cmpd_id", "id")
 
         println(res.getFields(List()))
@@ -159,7 +159,7 @@ object Application extends Controller {
     val tmpFile = FileUtils.getTmpFile(tmpDir, ".sdf")
     ufile2.ref.moveTo(new File(tmpFile), replace = true)
 
-    //val dfm = CompoundUtils.getMolsSVG(tmpFile)
+//    val dfm = CompoundUtils.getMolsSVG(tmpFile)
     val dfm = CompoundUtils.getMolsIMG(tmpFile)
 
     val numMol = this.storeMol(tmpFile)
@@ -176,5 +176,6 @@ object Application extends Controller {
   def references = Action {
     Ok(views.html.references(""))
   }
+
 
 }

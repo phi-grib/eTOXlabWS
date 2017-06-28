@@ -41,7 +41,11 @@ object Application extends Controller {
   def getModels = Action {
     val js = Json.toJson(Map("predictions" -> eTOXlab.read_models.map(
       (tupla: (String, String, String, String)) => Map("model" -> tupla._1, "tag" -> tupla._2, "version" -> tupla._4))))
-    Ok(js)
+    Ok(js).withHeaders("Access-Control-Allow-Origin" -> "*",
+      "Access-Control-Allow-Methods" -> "GET, POST",
+      "Access-Control-Max-Age" -> "3600",
+      "Access-Control-Allow-Headers" -> "Origin, Content-Type, Accept, Authorization",
+      "Access-Control-Allow-Credentials" -> "true")
   }
 
   def getModelInfo(tag: String) = Action {

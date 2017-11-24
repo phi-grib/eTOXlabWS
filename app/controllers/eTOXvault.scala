@@ -10,8 +10,6 @@ import models.dataframe._
 
 object eTOXvault {
 
-
-
   def getModelInfo(tag: String) = {
 
     val tagencoded = tag.replaceAll(" ", "%20")
@@ -38,13 +36,42 @@ object eTOXvault {
     jso
   }
 
-  def getModelInfoMP(tag: String) = {
+  def loadModels = {
+    import java.io._
+    controllers.Application.conf
+    val models = eTOXlab.read_models
+    val infomodels = for ((short, tag, _, _) <- models)
+      yield ((short, getModelInfo(tag)))
 
-    println("Model tag: " + tag)
-    val jso = this.getModelInfo(tag)
+    val modelinfodir = controllers.Application.envoy_ws_home + "/modelinfo/"
+    for ((short, info) <- infomodels) {
+      val pw = new PrintWriter(new File(modelinfodir + short + ".txt"))
+      pw.write(info.toString())
+      pw.close
+    }
+    models
+  }
+  def getModelInfoLocal(tag: String) = {
+    val models = eTOXlab.read_models    
+    val (short, _, _, _) = models.filter(_._2 == tag).head
+    val modelinfodir = controllers.Application.envoy_ws_home + "/modelinfo/"
+    val s=scala.io.Source.fromFile(modelinfodir + short + ".txt").mkString
+    s
+  }
+
+  def getModelInfoMP(tag: String) = {
+    val tagencoded = tag.replaceAll("%20"," ")
+    println("Model tag: " + tagencoded)
+    val info=this.getModelInfoLocal(tagencoded)
+    println("Info: "+ info)
+    val jso =  Json.parse(info).as[JsObject]
     val mp = for ((field, value) <- jso.value if (field != "software"))
       yield (field, value.as[JsString].value)
 
+    //val jso = this.getModelInfo(tag)
+    //val mp = for ((field, value) <- jso.value if (field != "software"))
+    //      yield (field, value.as[JsString].value)
+      
     val df = DataFrame(List(collection.immutable.HashMap(mp.toSeq: _*)))
     df.getData(0)
   }

@@ -13,6 +13,8 @@ import org.apache.commons.codec.binary.Base64
 
 object CompoundUtils {
 
+
+
   var sizex = controllers.Application.molsizex
   var sizey = controllers.Application.molsizey
 
@@ -66,20 +68,20 @@ object CompoundUtils {
   }
 
   def getMolsIMG(filename: String) = {
-    val l = for (p <- getMols(filename))
-      yield ({
-      println("id: " + p._1)
-      println("smiles: " + getSMILESfromMol(p._2))
-      val smiles = getSMILESfromMol(p._2)
-      val img = if (smiles == "")
-        ""
-      else
-        getIMGBase64_FromSMiles_RDKit(getSMILESfromMol(p._2))
-      println("img: " + img)
-      (p._1, img)
-    })
-    val l2 = l.filter(_._2 != "")
-    println("Mols img generated: " + l2.size)
+    val l = for(p <- getMols(filename))
+	yield({
+	     println("id: "+p._1)
+	     println("smiles: " + getSMILESfromMol(p._2))
+             val smiles=getSMILESfromMol(p._2)
+	     val img=if (smiles=="")
+		""
+             else 
+	        getIMGBase64_FromSMiles_RDKit(getSMILESfromMol(p._2))
+             println("img: "+img)
+	     (p._1,img )
+	})
+    val l2=  l.filter(_._2!="")
+    println("Mols img generated: "+ l2.size)
     val img = (base64: String) => "<img alt=\"Embedded Image\" src=\"data:image/png;base64," + base64 + "\"> </img>"
     val l3 = l2.map(t => Map("id" -> t._1.toString, "structure" -> img(t._2)))
     models.dataframe.DataFrame(l3.toList)
@@ -135,11 +137,11 @@ object CompoundUtils {
 
   def getSMILESfromMol(m: ROMol) = {
     val smiles = try {
-      val smiles = m.MolToSmiles()
-      smiles
+	val smiles=m.MolToSmiles()
+	smiles
     } catch {
       case e: Throwable => {
-        println("Mol to SMILES failed")
+        println("Mol to SMILES failed") 
         ""
       }
     }
